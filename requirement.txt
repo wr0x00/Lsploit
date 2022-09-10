@@ -1,0 +1,9 @@
+python-whois
+requests
+python-whois
+shodan
+dill
+pexpect
+pysocks
+paramiko
+jsonpath_ng
