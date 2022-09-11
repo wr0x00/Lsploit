@@ -73,7 +73,7 @@ if  __name__ == '__main__':
     import json,requests   
 
     # 读入示例json数据
-    j=open("modules\configs.json",encoding='utf-8')
+    j=open("modules/configs.json",encoding='utf-8')
     demo_json = json.loads(j.read())
 
     if demo_json["language"]=='cn'or demo_json["language"]=='CN':
