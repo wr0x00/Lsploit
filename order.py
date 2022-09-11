@@ -13,7 +13,7 @@ if  not __name__ == '__main__':
 	try:
 		import json
 		# 读入示例json数据
-		j=open("modules\configs.json",encoding='utf-8')
+		j=open("modules/configs.json",encoding='utf-8')
 		demo_json = json.loads(j.read())
 
 		if demo_json["language"]=='cn'or demo_json["language"]=='CN': #中文
@@ -44,7 +44,7 @@ def cve_info():
     soup=b(r.text,'html.parser')
     items=soup.find_all('tr')
 
-    j=open("modules\configs.json",encoding='utf-8')
+    j=open("modules/configs.json",encoding='utf-8')
     demo_json = json.loads(j.read())
     max=int(demo_json["news"])+1
 
@@ -112,7 +112,8 @@ def order_deal_Common(order:str,agent=None):
                 print(Str.LOADING)
 
                 for i in range(int(max[0]),int(max[1])+1):
-                    if "ms" in os.popen('ping  %s' % (target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))).read():
+		    cmd=os.popen('ping  %s' % (target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))).read()
+                    if "ttl" in cmd or "TTL" in cmd:
                         #print(os.popen('ping  %s' % (target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))).read())
                         online.append(i)
                         continue
@@ -154,7 +155,7 @@ def order_deal_Common(order:str,agent=None):
             if s[2]:
                 modules.subdomain.subdomain(format(s[1]),s[2])  
         except IndexError:
-            modules.subdomain.subdomain(format(s[1]),"modules\subdomain.txt")          #扫描子域名(字典默认modules\subdomain.txt)
+            modules.subdomain.subdomain(format(s[1]),"modules/subdomain.txt")          #扫描子域名(字典默认modules\subdomain.txt)
     
     if s[0]=='whois':       #whois查询 
         modules.sniff.whois_sniff(format(s[1]))
@@ -180,7 +181,7 @@ def order_deal_Common(order:str,agent=None):
         if s[4]:
             r.force_ssh(s[1], s[4], s[2], int(s[3]))
         else:
-            r.force_ssh(s[1], 'modules\pwddic\password\_top19576.txt', s[2], int(s[3]))
+            r.force_ssh(s[1], 'modules/pwddic/password/_top19576.txt', s[2], int(s[3]))
     
     if s[0]=='webshell': 
         import modules.webshell as w
