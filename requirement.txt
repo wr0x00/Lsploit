@@ -6,4 +6,5 @@ dill
 pexpect
 pysocks
 paramiko
-jsonpath_ng
+bs4
+prettytable
