@@ -1,7 +1,17 @@
 # Lsploit
+![https://www.python.org](https://img.shields.io/badge/language-python3-informational?logo=python&logoColor=white&color=2bbc8a)
+![](https://img.shields.io/badge/features-convenient-informational?style=for-the-badge&logo=appveyor)
+![](https://img.shields.io/badge/tested-termux-green?style=for-the-badge&logo=appveyor)
+![](https://img.shields.io/github/issues/wr0x00/Lsploit?style=for-the-badge&logo=appveyor)
+![](https://img.shields.io/github/stars/wr0x00/Lsploit?style=for-the-badge&logo=appveyor)
 
-一款命令行下的渗透测试框架,涵盖一般常用功能，结合最新漏洞通告,可自行组装exp,poc
+一款命令行下的渗透测试框架,涵盖一般常用功能,结合最新漏洞通告,可自行组装exp,poc
 
+### 安装
+```shell
+git clone https://github.com/wr0x00/Lsploit
+cd Lsploit
+```
 ### 使用
 ```shell
 python lp.py
@@ -50,9 +60,15 @@ Lsploit>help
 
 Lsploit>
 ```
-
+### 已测试
+ * windows 10
+ * termux(Android)
+ * debain
+ 
 ### 声明
 **用户使用本项目所触犯的一切法律责任与本项目作者无关，使用即接受此声明**
 
 ### 结语
-本项目若有不足或侵权，请发送issue
+本项目若有不足或侵权，欢迎发送issue
+
+茫茫阡陌上并没有那么宁静,熊鹅争锋,菊香四逸,但在夜间,至少上帝是领先的
