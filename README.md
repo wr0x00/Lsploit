@@ -11,6 +11,7 @@
 ```shell
 git clone https://github.com/wr0x00/Lsploit
 cd Lsploit
+pip install requests
 ```
 ### 使用
 ```shell
