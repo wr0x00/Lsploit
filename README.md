@@ -11,7 +11,8 @@
 ```shell
 git clone https://github.com/wr0x00/Lsploit
 cd Lsploit
-pip install requests
+pip install -r requirment.txt
+pip install requests && pip install bs4 && pip install prettytable
 ```
 ### 使用
 ```shell
