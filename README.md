@@ -67,9 +67,9 @@ Lsploit>
  * termux(Android)
  * debain
  
- >[目前支持的poc](https://github.com/wr0x00/Lizard/wiki/Supported_poc_CN)
+ >[自带的poc](https://github.com/wr0x00/Lizard/wiki/Supported_poc_CN)
  
- >[目前支持的exp](https://github.com/wr0x00/Lizard/wiki/Support_EXP_CN)
+ >[自带的exp](https://github.com/wr0x00/Lizard/wiki/Support_EXP_CN)
 ### 声明
 **用户使用本项目所触犯的一切法律责任与本项目作者无关，使用即接受此声明**
 
