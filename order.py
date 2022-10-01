@@ -112,7 +112,7 @@ def order_deal_Common(order:str,agent=None):
                 print(Str.LOADING)
 
                 for i in range(int(max[0]),int(max[1])+1):
-		    cmd=os.popen('ping  %s' % (target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))).read()
+		    	cmd=os.popen('ping  %s' % (target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))).read()
                     if "ttl" in cmd or "TTL" in cmd:
                         #print(os.popen('ping  %s' % (target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))).read())
                         online.append(i)
