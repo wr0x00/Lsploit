@@ -29,7 +29,7 @@ class String_CN:
         ssh 地址 用户名 端口 字典路径       ssh爆破(用户默认root,端口默认22,字典路径默认modul
         webshell 网址 密码               连接php一句话木马,虚拟终端
         dos IP地址 端口 线程            dos攻击（线程默认40）
-        exp cve编号 目标 端口         exp利用(cve编号的cve后面第一个短横去掉,如cve-2018-9995
+        exp cve编号 目标 端口         exp利用(cve编号的cve后面第一个短横去掉,如cve-2018-9995写成cve2018-9995)
 
 设置：
         setnews 数字                设置播报漏洞数
@@ -85,7 +85,7 @@ class String_EN:
         ssh 地址 用户名 端口 字典路径       ssh爆破(用户默认root,端口默认22,字典路径
         webshell 网址 密码               连接php一句话木马,虚拟终端
         dos IP地址 端口 线程            dos攻击（线程默认40）
-        exp cve编号 目标 端口         exp利用(cve编号的cve后面第一个短横去掉,如cve-2
+        exp cve编号 目标 端口         exp利用(cve编号的cve后面第一个短横去掉
 
 设置：
         setnews 数字                设置播报漏洞多少数
