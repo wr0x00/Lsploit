@@ -84,11 +84,12 @@ if  __name__ == '__main__':
     try:
         while True:
                 print(banner)
-                cve_info()
-
                 try:
+                    cve_info()
                     info=requests.get('http://myip.ipip.net',proxies=demo_json["proxy"],timeout=5).text
                     print(info)    #广域地址  
+                except requests.exceptions.SSLError:
+                    print("站貌似是崩了。。。")
                 except requests.exceptions.ConnectionError:
                     pass
 
