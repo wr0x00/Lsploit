@@ -69,15 +69,15 @@ def order_deal_Setting(order:str):
 
     if s[0]=='setnews':     #设置播报显示多少数
         demo_json["news"]=s[1]
-        print("OK")
+        print(Str.SUCCESS_SET)
     
     if s[0]=='setproxy':     #设置代理
         demo_json["proxy"]=s[1]
-        print("OK")
+        print(Str.SUCCESS_SET)
         
     if s[0]=='setlang':       #设置语言
         demo_json["language"] =s[1]
-        print("OK")
+        print(Str.SUCCESS_SET)
 
     with open("modules/configs.json", "w") as jsonFile:
         json.dump(demo_json, jsonFile,ensure_ascii=False)
@@ -86,6 +86,7 @@ def order_deal_Setting(order:str):
     jsonFile.close()
 
 def order_deal_Common(order:str,agent=None):
+    import modules
     s=order.split()
 
     if s[0]=='help':
@@ -98,7 +99,7 @@ def order_deal_Common(order:str,agent=None):
             if s[3] and s[2]:
                 modules.sniff.start_dirscan(format(s[1]), s[3], int(s[2]))
         except IndexError:
-            modules.sniff.start_dirscan(format(s[1]), "modules/dict.txt",int(s[2]))
+            modules.sniff.start_dirscan(format(s[1]), "modules/dict.txt",60)
 
     if s[0]=='sp': 
         try:

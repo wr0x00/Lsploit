@@ -69,7 +69,7 @@ class String_CN:
 
     SUCCESS_SCAN="扫描完成"
     SUCCESS_SSH="ssh爆破成功"
-    SUCCESS_SET="设置成功"
+    SUCCESS_SET="设置成功,重启生效"
 
 class String_EN:
     HELP="""
@@ -124,4 +124,4 @@ class String_EN:
 
     SUCCESS_SCAN="scanning over"
     SUCCESS_SSH="ssh brute force crack successful"
-    SUCCESS_SET="setted successful"
+    SUCCESS_SET="setted successful,restart takes effect"

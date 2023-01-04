@@ -43,7 +43,7 @@ def whatweb(url):
     whatweb_dict = whatweb_dict.encode()
     whatweb_dict = zlib.compress(whatweb_dict)
     data = {"info":whatweb_dict}
-    return requests.post("http://whatweb.bugscaner.com/api.go",files=data,params=proxy)#脚本小子建的站，接口不稳定
+    return requests.post("http://whatweb.bugscaner.com/api.go",files=data,params=proxy,timeout=10)#脚本小子建的站，接口不稳定
 
 def cms(url):
     request = whatweb(url)

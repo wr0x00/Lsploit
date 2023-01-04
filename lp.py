@@ -50,7 +50,7 @@ if demo_json["first"]==True:    #第一次使用该程序
             #ip_position(re.findall("\d+",info))
         except requests.exceptions.ConnectionError:
             pass
-        print('\033[1;37;40m')#黄色标记结束 
+        print('\033[1;37;40m')#黄色标记结束
 
 
     demo_json["first"]=False
@@ -59,15 +59,15 @@ if demo_json["first"]==True:    #第一次使用该程序
 
 banner="""
 \033[32m
-__       ____     ____     __       _____    ______  ______   
+  __       ____     ____     __       _____    ______  ______   
  /\ \     /\  _`\  /\  _`\  /\ \     /\  __`\ /\__  _\/\__  _\  
  \ \ \    \ \,\L\_\\ \ \L\ \\ \ \    \ \ \/\ \\/_/\ \/\/_/\ \/  
   \ \ \  __\/_\__ \ \ \ ,__/ \ \ \  __\ \ \ \ \  \ \ \   \ \ \  
    \ \ \L\ \ /\ \L\ \\ \ \/   \ \ \L\ \\ \ \_\ \  \_\ \__ \ \ \ 
     \ \____/ \ `\____\\ \_\    \ \____/ \ \_____\ /\_____\ \ \_、
-     \/___/   \/_____/ \/_/     \/___/   \/_____/ \/_____/  \/_/                                                  
+     \/___/   \/_____/ \/_/     \/___/   \/_____/ \/_____/  \/_/                                              
 \033[1;37;40m                                                                                                                            
-"""     #打印装逼标志
+"""    #打印装逼标志
 
 if  __name__ == '__main__':
     import json,requests   
@@ -83,27 +83,26 @@ if  __name__ == '__main__':
     
     try:
         while True:
-                print(banner)
-                try:
-                    cve_info()
-                    info=requests.get('http://myip.ipip.net',proxies=demo_json["proxy"],timeout=5).text
-                    print(info)    #广域地址  
-                except requests.exceptions.SSLError:
-                    print("站貌似是崩了。。。")
-                except requests.exceptions.ConnectionError:
-                    pass
+            print(banner)
+            try:
+                cve_info()
+                info=requests.get('http://myip.ipip.net',proxies=demo_json["proxy"],timeout=5).text
+                print('\033[91m'+info+'\033[1;37;40m')    #广域地址
+            except requests.exceptions.SSLError:
+                print("站貌似是崩了。。。")
+            except requests.exceptions.ConnectionError:
+                pass
 
-                while True:
-                    order=input("Lsploit>")
-                    if "set" in order:
-                        order_deal_Setting(order)
-                    else:
-                        order_deal_Common(order,demo_json["proxy"]) 
+            while True:
+                order=input("Lsploit>")
+                if "set" in order:
+                    order_deal_Setting(order)
+                else:
+                    order_deal_Common(order,demo_json["proxy"]) 
 
     except KeyboardInterrupt:
         print("\nbye")
-        exit()   
-
+        exit()
 
 
 #end
