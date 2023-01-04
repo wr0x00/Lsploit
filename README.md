@@ -1,5 +1,5 @@
 # Lsploit
-![https://www.python.org](https://img.shields.io/badge/language-python3-informational?logo=python&logoColor=white&color=2bbc8a)
+
 ![](https://img.shields.io/badge/Size-4MB-informational?style=for-the-badge&logo=appveyor)
 ![](https://img.shields.io/badge/tested-termux-green?style=for-the-badge&logo=appveyor)
 ![](https://img.shields.io/github/issues/wr0x00/Lsploit?style=for-the-badge&logo=appveyor)
