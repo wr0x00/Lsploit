@@ -6,8 +6,8 @@
 '''
 
 import requests as rq
-from lib import strings
-import lib.sniff
+from libs import strings
+import libs.sniff
 #设置语言
 if  not __name__ == '__main__':
 	try:
@@ -17,13 +17,13 @@ if  not __name__ == '__main__':
 		demo_json = json.loads(j.read())
 
 		if demo_json["language"]=='cn'or demo_json["language"]=='CN': #中文
-			from lib.strings import String_CN as Str
+			from libs.strings import String_CN as Str
 		
 		if demo_json["language"]=='en'or demo_json["language"]=='EN': #英文
-			from lib.strings import String_EN as Str
+			from libs.strings import String_EN as Str
 
 	except Exception as e:
-		from lib.strings import String_EN as Str
+		from libs.strings import String_EN as Str
 		print("langrage_ERROR:"+format(e))
 
 def cve_info():   
@@ -86,7 +86,7 @@ def order_deal_Setting(order:str):
     jsonFile.close()
 
 def order_deal_Common(order:str,agent=None):
-    import lib
+    import libs
     s=order.split()
 
     if s[0]=='help':
@@ -95,11 +95,11 @@ def order_deal_Common(order:str,agent=None):
     if s[0]=='sw':          #扫描网址目录（线程默认60)
         try:
             if s[2] and not s[3]:
-                lib.sniff.start_dirscan(format(s[1]), "lib/dict.txt", int(s[2]))
+                libs.sniff.start_dirscan(format(s[1]), "lib/dict.txt", int(s[2]))
             if s[3] and s[2]:
-                lib.sniff.start_dirscan(format(s[1]), s[3], int(s[2]))
+                libs.sniff.start_dirscan(format(s[1]), s[3], int(s[2]))
         except IndexError:
-            lib.sniff.start_dirscan(format(s[1]), "lib/dict.txt",60)
+            libs.sniff.start_dirscan(format(s[1]), "lib/dict.txt",60)
         except rq.exceptions.ConnectionError:
             print(Str.ERROR_CONNECT)
         finally:
@@ -107,7 +107,7 @@ def order_deal_Common(order:str,agent=None):
 
     if s[0]=='sp': 
         try:
-            import os,lib.sniff         #扫描端口
+            import os,libs.sniff         #扫描端口
             if "/" in s[1]:         #批量扫描
 
                 target=s[1].split(".")
@@ -129,11 +129,11 @@ def order_deal_Common(order:str,agent=None):
                     print("[online][+]"+target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))
                 for i in online:
                     print("\033[94m[+]"+target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i)+"\033[1;37;40m")
-                    lib.sniff.ScanPort(target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i),int(s[2])).start()    
+                    libs.sniff.ScanPort(target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i),int(s[2])).start()    
             else:    
-                lib.sniff.ScanPort(format(s[1]),int(s[2])).start()   
+                libs.sniff.ScanPort(format(s[1]),int(s[2])).start()   
         except IndexError:       
-            import os,lib.sniff         #扫描端口
+            import os,libs.sniff         #扫描端口
             if "/" in s[1]:         #批量扫描
                 target=s[1].split(".")
                 max=target[3].split('/')
@@ -150,51 +150,51 @@ def order_deal_Common(order:str,agent=None):
                     print("[online][+]"+target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))
                 for i in online:
                     print("\033[94m[+]"+target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i)+"\033[1;37;40m")
-                    lib.sniff.ScanPort(target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i)).start()    
+                    libs.sniff.ScanPort(target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i)).start()    
             else:    
-                lib.sniff.ScanPort(format(s[1])).start()   
+                libs.sniff.ScanPort(format(s[1])).start()   
 
     if s[0]=='sd':
-        import lib.subdomain
+        import libs.subdomain
         try:
             if s[2]:
-                lib.subdomain.subdomain(format(s[1]),s[2])  
+                libs.subdomain.subdomain(format(s[1]),s[2])  
         except IndexError:
-            lib.subdomain.subdomain(format(s[1]),"lib/subdomain.txt")          #扫描子域名(字典默认modules\subdomain.txt)
+            libs.subdomain.subdomain(format(s[1]),"libs/subdomain.txt")          #扫描子域名(字典默认modules\subdomain.txt)
     
     if s[0]=='whois':       #whois查询 
-        lib.sniff.whois_sniff(format(s[1]))
+        libs.sniff.whois_sniff(format(s[1]))
 
     if s[0]=='shod':         #shodan
-        lib.sniff.shodan_search(format(s[1]))
+        libs.sniff.shodan_search(format(s[1]))
 
     if s[0]=='c':
-        import lib.cms as cms
+        import libs.cms as cms
         cms.set_agent(agent)
         cms.cms(format(s[1]))
 
     if s[0]=='poc':  
         try:
             import os
-            os.system("python lib/ws.py -po " + format(s[2]) + " -t " +s[1])
+            os.system("python libs/ws.py -po " + format(s[2]) + " -t " +s[1])
         except IndexError:
             import os
-            os.system("python lib/ws.py" + " -t " + s[1])
+            os.system("python libs/ws.py" + " -t " + s[1])
     
     if s[0]=='ssh': 
-        import lib.ssh as r
+        import libs.ssh as r
         if s[4]:
             r.force_ssh(s[1], s[4], s[2], int(s[3]))
         else:
-            r.force_ssh(s[1], 'lib/pwddic/password/_top19576.txt', s[2], int(s[3]))
+            r.force_ssh(s[1], 'libs/pwddic/password/_top19576.txt', s[2], int(s[3]))
     
     if s[0]=='webshell': 
-        import lib.webshell as w
+        import libs.webshell as w
         w.set_agent(agent)
         w.exp(s[1], s[2])  
 
     if s[0]=='dos': 
-        import lib.dosattack as y
+        import libs.dosattack as y
         try:
             y.exp(s[1], s[2], int(s[3]))
         except IndexError:
@@ -204,7 +204,7 @@ def order_deal_Common(order:str,agent=None):
         try:
             exp = s[1].replace("-", "_")
             exp = exp.replace("cve", "C")
-            exec("import lib.exp." + exp + "_EXP as t\n")
+            exec("import libs.exp." + exp + "_EXP as t\n")
             exec(f"t.set_agent(agent)\n")
 
             if s[2]:

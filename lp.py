@@ -6,14 +6,14 @@
 '''
 from order import *
 import json
-import lib.sniff
+import libs.sniff
 
 def ip_position(ip):#查询ip归属地api
     import requests as r
     print(r.get("http://ip-api.com/json/"+format(ip)+"?lang=zh-CN").text)
 
 
-with open("lib/configs.json", "r",encoding='utf-8') as jsonFile:
+with open("libs/configs.json", "r",encoding='utf-8') as jsonFile:
     demo_json = json.load(jsonFile)
 
 
@@ -24,7 +24,7 @@ if demo_json["first"]==True:    #第一次使用该程序
     demo_json["language"]=language
   
     if demo_json["language"]=='cn'or demo_json["language"]=='CN': #中文
-        from lib.strings import String_CN as String        
+        from libs.strings import String_CN as String        
         print('\033[33m')   #黄色标记开始
         print(String.WARNING+"\n")  #警告语
         print(f"{String.LOCALHOST_LAN}{socket.gethostname()}")  #本机名
@@ -39,7 +39,7 @@ if demo_json["first"]==True:    #第一次使用该程序
 
 
     if demo_json["language"]=='en'or demo_json["language"]=='EN': #英文
-        from lib.strings import String_EN as String   
+        from libs.strings import String_EN as String   
         print('\033[33m')   #黄色标记开始
         print(String.WARNING+"\n")  #警告语
         print(f"{String.LOCALHOST_LAN}{socket.gethostname()}")  #本机名
@@ -54,7 +54,7 @@ if demo_json["first"]==True:    #第一次使用该程序
 
 
     demo_json["first"]=False
-    with open("lib/configs.json", "w") as jsonFile:
+    with open("libs/configs.json", "w") as jsonFile:
         json.dump(demo_json, jsonFile,ensure_ascii=False)
 
 banner="""
@@ -73,13 +73,13 @@ if  __name__ == '__main__':
     import json,requests   
 
     # 读入示例json数据
-    j=open("lib/configs.json",encoding='utf-8')
+    j=open("libs/configs.json",encoding='utf-8')
     demo_json = json.loads(j.read())
 
     if demo_json["language"]=='cn'or demo_json["language"]=='CN':
-        from lib.strings import String_CN as Str #中文
+        from libs.strings import String_CN as Str #中文
     if demo_json["language"]=='en'or demo_json["language"]=='EN':
-        from lib.strings import String_EN as Str #英文  
+        from libs.strings import String_EN as Str #英文  
     
     try:
         while True:
