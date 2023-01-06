@@ -4,7 +4,7 @@
 ![](https://img.shields.io/badge/tested-termux-green?style=for-the-badge&logo=appveyor)
 ![](https://img.shields.io/github/issues/wr0x00/Lsploit?style=for-the-badge&logo=appveyor)
 ![](https://img.shields.io/github/stars/wr0x00/Lsploit?style=for-the-badge&logo=appveyor)
-
+>注:测试中termux不支持scapy，官方尚未给出原因，故libs\arpattack.py只得再其他端使用
 一款命令行下的渗透测试框架,涵盖一般常用功能,结合最新漏洞通告,可自行组装exp,poc
 
 ### 安装
@@ -75,7 +75,6 @@ Lsploit>
 
 ### 结语
 本项目若有不足或侵权，欢迎发送issue
->注:测试中termux不支持scapy，官方尚未给出原因，故libs\arpattack.py只得再其他端使用
   <br>
   <br>
   <br>
