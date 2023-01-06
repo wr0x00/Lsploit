@@ -11,8 +11,8 @@
 ```shell
 git clone https://github.com/wr0x00/Lsploit
 cd Lsploit
-pip install -r requirement.txt
-pip install requests && pip install bs4 && pip install prettytable
+pip install -r requirement.txt -i http://pypi.douban.com/simple
+pip install requests -i http://pypi.douban.com/simple && pip install bs4 -i http://pypi.douban.com/simple && pip install prettytable -i http://pypi.douban.com/simple
 ```
 ### 使用
 ```shell
@@ -75,6 +75,7 @@ Lsploit>
 
 ### 结语
 本项目若有不足或侵权，欢迎发送issue
+>注:测试中termux不支持scapy，官方尚未给出原因，故libs\arpattack.py只得再其他端使用
   <br>
   <br>
   <br>
