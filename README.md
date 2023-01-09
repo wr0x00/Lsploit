@@ -5,14 +5,14 @@
 ![](https://img.shields.io/github/issues/wr0x00/Lsploit?style=for-the-badge&logo=appveyor)
 ![](https://img.shields.io/github/stars/wr0x00/Lsploit?style=for-the-badge&logo=appveyor)
 
-一款命令行下的渗透测试框架,涵盖一般常用功能,结合最新漏洞通告,可自行组装exp,poc
+lsploit为一款命令行下的渗透测试框架,快速命令平台,涵盖常用功能,结合最新漏洞通告,可自行组装exp,poc
 
 ### 安装
 ```shell
 git clone https://github.com/wr0x00/Lsploit
 cd Lsploit
-pip install -r requirement.txt
-pip install requests && pip install bs4 && pip install prettytable
+pip install -r requirement.txt -i http://pypi.douban.com/simple
+pip install requests -i http://pypi.douban.com/simple && pip install bs4 -i http://pypi.douban.com/simple && pip install prettytable -i http://pypi.douban.com/simple
 ```
 ### 使用
 ```shell
