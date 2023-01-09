@@ -6,14 +6,11 @@
 '''
 
 #CN 
-from sre_constants import SUCCESS
-
-
 class MessageSign:
-    EXC = '[!]'
-    STR = '[*]'
-    PLS = '[+]'
-    MIN = '[-]'
+    EXC = '\033[91m'+'[!]'+'\033[1;37;40m'#错误
+    STR = '\033[37;42m'+'[*]'+'\033[0m'#重要信息
+    PLS = '\033[32m'+'[+]'+'\033[1;37;40m'#执行信息
+    MIN = '\033[4;33m'+'[-]'+'\033[0m'#警告
 
 class String_CN:
     HELP="""
@@ -42,35 +39,35 @@ class String_CN:
     LOCALNAME="本机名称:"
     LOCALHOST_LAN="本机局域网地址:"
     LOCALHOST_WAN="本机广域网地址:"
-    LOADING="正在启动..."
+    LOADING=MessageSign.PLS+"正在启动..."
     RESULTS="结果:"
-    RESULTS_TOTAL="共找到:"
-    DICT_TOTAL="字典总计:"
+    RESULTS_TOTAL=MessageSign.PLS+"共找到:"
+    DICT_TOTAL=MessageSign.PLS+"字典总计:"
     TIME_TOTAL="总耗时:"
-    THREAD_TOTAL="线程总计:"
-    STOPING="正在停止..."
+    THREAD_TOTAL=MessageSign.PLS+"线程总计:"
+    STOPING=MessageSign.PLS+"正在停止..."
     EXIT="Bye"
     TARGET="目标:"
     USER = "账户"
     PWD = "密码"
     PORT = "端口"
     ADDR = "地址"
-    FOUND="发现"
-    THREAD_EXIT="请等待所有线程退出"
-    NOW_TRYING="正在尝试:"
+    FOUND=MessageSign.STR+"发现"
+    THREAD_EXIT=MessageSign.MIN+"请等待所有线程退出"
+    NOW_TRYING=MessageSign.PLS+"正在尝试:"
     TIMES_send="次发送到"
     BYTE="字节"
-    REMAINING_TIMES="今日剩余次数"
+    REMAINING_TIMES=MessageSign.MIN+"今日剩余次数"
 
-    ERROR_IP_FORMAT="IP地址格式不正确"
-    ERROR_CONNECT="无法连接 :("
-    ERROT_DICT="字典为空 :("
-    ERROR_ORDER="命令错误"
+    ERROR_IP_FORMAT=MessageSign.EXC+"IP地址格式不正确"
+    ERROR_CONNECT=MessageSign.EXC+"无法连接 :("
+    ERROT_DICT=MessageSign.EXC+"字典为空 :("
+    ERROR_ORDER=MessageSign.EXC+"命令错误"
 
     SUCCESS_SCAN="扫描完成"
     SUCCESS_SSH="ssh爆破成功"
     SUCCESS_SET="设置成功,重启生效"
-
+#EN
 class String_EN:
     HELP="""
 常用：
@@ -117,10 +114,10 @@ class String_EN:
     BYTE="bytes"
     REMAINING_TIMES="The number of times remaining today"
 
-    ERROR_IP_FORMAT="IP address format is wrong"
-    ERROR_CONNECT="connect error :("
-    ERROT_DICT="dictionary is none :("
-    ERROR_ORDER="order error"
+    ERROR_IP_FORMAT=MessageSign.EXC+"IP address format is wrong"
+    ERROR_CONNECT=MessageSign.EXC+"connect error :("
+    ERROT_DICT=MessageSign.EXC+"dictionary is none :("
+    ERROR_ORDER=MessageSign.EXC+"order error"
 
     SUCCESS_SCAN="scanning over"
     SUCCESS_SSH="ssh brute force crack successful"

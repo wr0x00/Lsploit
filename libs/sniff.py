@@ -58,7 +58,7 @@ def shodan_search(str)->None:
         results = api.search(str)
         for result in results['matches']:         
                 print ("\033[0;32;40m%s\033[0m:\033[0;31m%s\033[1;37;40m|%s|%s"%(result['ip_str'],result['port'],result['location']['country_name'],result['hostnames']))
-        print (Str.RESULTS_TOTAL+format(results['total']))
+        print(Str.RESULTS_TOTAL+format(results['total']))
     except shodan.APIError as e:
         print (Str.ERROR_CONNECT+":"+e)
 

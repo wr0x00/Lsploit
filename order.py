@@ -13,7 +13,7 @@ if  not __name__ == '__main__':
 	try:
 		import json
 		# 读入示例json数据
-		j=open("lib/configs.json",encoding='utf-8')
+		j=open("libs/configs.json",encoding='utf-8')
 		demo_json = json.loads(j.read())
 
 		if demo_json["language"]=='cn'or demo_json["language"]=='CN': #中文
@@ -44,7 +44,7 @@ def cve_info():
     soup=b(r.text,'html.parser')
     items=soup.find_all('tr')
 
-    j=open("lib/configs.json",encoding='utf-8')
+    j=open("libs/configs.json",encoding='utf-8')
     demo_json = json.loads(j.read())
     max=int(demo_json["news"])+1
 
@@ -64,7 +64,7 @@ def order_deal_Setting(order:str):
     import json
     s=order.split()
 
-    with open("lib/configs.json", "r",encoding='utf-8') as jsonFile:
+    with open("libs/configs.json", "r",encoding='utf-8') as jsonFile:
         demo_json = json.load(jsonFile)
 
     if s[0]=='setnews':     #设置播报显示多少数
@@ -79,7 +79,7 @@ def order_deal_Setting(order:str):
         demo_json["language"] =s[1]
         print(Str.SUCCESS_SET)
 
-    with open("lib/configs.json", "w") as jsonFile:
+    with open("libs/configs.json", "w") as jsonFile:
         json.dump(demo_json, jsonFile,ensure_ascii=False)
     
     
@@ -95,11 +95,11 @@ def order_deal_Common(order:str,agent=None):
     if s[0]=='sw':          #扫描网址目录（线程默认60)
         try:
             if s[2] and not s[3]:
-                libs.sniff.start_dirscan(format(s[1]), "lib/dict.txt", int(s[2]))
+                libs.sniff.start_dirscan(format(s[1]), "libs/dict.txt", int(s[2]))
             if s[3] and s[2]:
                 libs.sniff.start_dirscan(format(s[1]), s[3], int(s[2]))
         except IndexError:
-            libs.sniff.start_dirscan(format(s[1]), "lib/dict.txt",60)
+            libs.sniff.start_dirscan(format(s[1]), "libs/dict.txt",60)
         except rq.exceptions.ConnectionError:
             print(Str.ERROR_CONNECT)
         finally:
@@ -211,4 +211,5 @@ def order_deal_Common(order:str,agent=None):
                 exec(f"t.exp('{s[2]}',{s[3]})")
         except IndexError:
             print(Str.ERROR_ORDER)
-        
+    else:
+        print(Str.ERROR_ORDER)
