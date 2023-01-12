@@ -93,14 +93,18 @@ def order_deal_Common(order:str,agent=None):
         print(Str.HELP)
 
     if s[0]=='sw':          #扫描网址目录（线程默认60)
+        import httpx
         try:
             if s[2] and not s[3]:
                 libs.sniff.start_dirscan(format(s[1]), "libs/dict.txt", int(s[2]))
             if s[3] and s[2]:
                 libs.sniff.start_dirscan(format(s[1]), s[3], int(s[2]))
         except IndexError:
-            libs.sniff.start_dirscan(format(s[1]), "libs/dict.txt",60)
-        except rq.exceptions.ConnectionError:
+            try:
+                libs.sniff.start_dirscan(format(s[1]), "libs/dict.txt",60)
+            except httpx.ConnectTimeout:
+                print(Str.ERROR_CONNECT)
+        except httpx.ConnectTimeout:
             print(Str.ERROR_CONNECT)
         finally:
             print(Str.ERROR_ORDER)

@@ -12,6 +12,7 @@ import socket
 from tokenize import String
 from weakref import proxy
 import requests
+import httpx as hp
 import threading
 from .strings import MessageSign as Sign
 
@@ -123,7 +124,7 @@ class Dirscan(object):
             'Cache-Control': 'no-cache',
         }
     def _analysis404(self):
-        notFoundPage = requests.get(self.scanSite + '/songgeshigedashuaibi/hello.html',proxies=proxy,allow_redirects=False)
+        notFoundPage = hp.get(self.scanSite + '/songgeshigedashuaibi/hello.html',proxies=proxy)
         self.notFoundPageText = notFoundPage.text.replace('/songgeshigedashuaibi/hello.html', '')
 
     def _writeOutput(self, result):
@@ -135,8 +136,8 @@ class Dirscan(object):
     def _scan(self, url):
         html_result = 0
         try:
-            html_result = requests.get(url, headers=self.headers, allow_redirects=False, proxies=proxy,timeout=60)
-        except requests.exceptions.ConnectionError:
+            html_result = hp.get(url, headers=self.headers,proxies=proxy,timeout=30)
+        except hp.ConnectTimeout:
             # print 'Request Timeout:%s' % url
             pass
         finally:
@@ -248,4 +249,75 @@ class ScanPort_:
             return self.ports
         except KeyboardInterrupt:#守护线程池
             pool.terminate()
+
+class httpx_dirscan():#携程扫描目录
+    def __init__(self, Scan_URL, Scan_DICT, Scan_OUTPUT=0,Asyncio_Num=60) -> None:
+        import asyncio
+        self.Asyncio_Num = Asyncio_Num#设置携程数
+
+        print (Str.LOADING+Scan_URL)
+        self.Scan_URL = Scan_URL if Scan_URL.find('://') != -1 else 'http://%s' % Scan_URL  #处理懒癌患者
+        print (Str.TARGET+self.Scan_URL)
+        
+        self.Scan_DICT = Scan_DICT#字典路径
+        self._loadDict(self.Scan_DICT)#加载字典
+
+        '''创建日志'''
+        self.Scan_OUTPUT = Scan_URL.rstrip('/').replace('https://', '').replace('http://', '')+'_webdir.txt' if Scan_OUTPUT == 0 else Scan_OUTPUT#写文件名
+        truncate = open(self.Scan_OUTPUT,'w')
+        truncate.close()
+        
+        self._loadHeaders()#请求头
+        self._analysis404()#404处理
+        self.STOP_ME = False
+
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.run())
+        
+    def _loadDict(self, dict_list):
+        self.q = queue.Queue()
+        with open(dict_list,encoding='utf-8') as f:
+            for line in f:
+                if line[0:1] != '#':
+                    self.q.put(line.strip())
+        if self.q.qsize() > 0:
+            print (Str.DICT_TOTAL+format(self.q.qsize()))
+        else:
+            print (Str.ERROT_DICT)
+            quit()
+
+    def _loadHeaders(self):
+        self.headers = {
+            'Accept': '*/*',
+            'Referer': 'http://www.baidu.com',
+            'User-Agent': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; ',
+            'Cache-Control': 'no-cache',
+        }
+    def _analysis404(self):
+        notFoundPage = hp.get(self.Scan_URL + '/songgeshigedashuaibi/hello.html',proxies=proxy)
+        self.notFoundPageText = notFoundPage.text.replace('/songgeshigedashuaibi/hello.html', '')
+
+    def _writeOutput(self, result):
+        self.lock.acquire()
+        with open(self.Scan_OUTPUT, 'a+') as f:
+            f.write(result + '\n')
+        self.lock.release()
+
+    def _scan(self, url):
+        html_result = 0
+        try:
+            html_result = hp.get(url, headers=self.headers,proxies=proxy,timeout=30)
+        except hp.ConnectTimeout:
+            # print 'Request Timeout:%s' % url
+            pass
+        finally:
+            if html_result != 0:
+                if html_result.status_code == 200 and html_result.text != self.notFoundPageText:
+                    print ('[%i]%s' % (html_result.status_code, html_result.url))
+                    self._writeOutput('[%i]%s' % (html_result.status_code, html_result.url))
+
+    async def run(self):
+        tasks = []
+        for i in range(1, 5):
+            tasks.append(asyncio.create_task(func1(i)))
 #end

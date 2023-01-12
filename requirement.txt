@@ -8,3 +8,4 @@ pysocks
 paramiko
 bs4
 prettytable
+httpx

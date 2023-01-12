@@ -11,8 +11,9 @@ lsploit为一款命令行下的渗透测试框架,快速命令平台,涵盖常�
 ```shell
 git clone https://github.com/wr0x00/Lsploit
 cd Lsploit
-pip install -r requirement.txt -i http://pypi.douban.com/simple
-pip install requests -i http://pypi.douban.com/simple && pip install bs4 -i http://pypi.douban.com/simple && pip install prettytable -i http://pypi.douban.com/simple
+pip install -r requirement.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+pip install requests -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install bs4 -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install prettytable -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 ### 使用
 ```shell
