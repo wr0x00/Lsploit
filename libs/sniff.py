@@ -13,7 +13,10 @@ from tokenize import String
 from weakref import proxy
 import requests
 import httpx as hp
+
 import threading
+import asyncio
+
 from .strings import MessageSign as Sign
 
 #设置语言
@@ -63,7 +66,7 @@ def shodan_search(str)->None:
     except shodan.APIError as e:
         print (Str.ERROR_CONNECT+":"+e)
 
-def start_dirscan(URL,Dict,thread=60):     #启动Dirscan类
+def start_dirscan(URL,Dict,thread=60):     #启动Dirscan类          
     scan = Dirscan(URL, Dict, 0, thread)
     for i in range(thread):
         t = threading.Thread(target=scan.run)
@@ -81,7 +84,7 @@ def start_dirscan(URL,Dict,thread=60):     #启动Dirscan类
                 scan.STOP_ME = True
 
     print (Str.SUCCESS_SCAN)
-class Dirscan(object):
+class Dirscan(object): #[已弃用]
     '''
     功能：扫描目录
     参数：scanSite网站地址,
@@ -89,7 +92,7 @@ class Dirscan(object):
          scanOutput输出文件名称,
          threadNum线程，        
     '''
-    def __init__(self, scanSite, scanDict, scanOutput=0,threadNum=60):
+    def __init__(self, scanSite, scanDict,threadNum=60,scanOutput=0):
         print (Str.LOADING+scanDict)
         self.scanSite = scanSite if scanSite.find('://') != -1 else 'http://%s' % scanSite
         print (Str.TARGET+self.scanSite)
@@ -251,7 +254,7 @@ class ScanPort_:
             pool.terminate()
 
 class httpx_dirscan():#携程扫描目录
-    def __init__(self, Scan_URL, Scan_DICT, Scan_OUTPUT=0,Asyncio_Num=60) -> None:
+    def __init__(self, Scan_URL, Scan_DICT,Asyncio_Num=60,Scan_OUTPUT=0) -> None:
         import asyncio
         self.Asyncio_Num = Asyncio_Num#设置携程数
 
@@ -263,12 +266,12 @@ class httpx_dirscan():#携程扫描目录
         self._loadDict(self.Scan_DICT)#加载字典
 
         '''创建日志'''
-        self.Scan_OUTPUT = Scan_URL.rstrip('/').replace('https://', '').replace('http://', '')+'_webdir.txt' if Scan_OUTPUT == 0 else Scan_OUTPUT#写文件名
-        truncate = open(self.Scan_OUTPUT,'w')
+        self.Scan_OUTPUT = Scan_URL.rstrip('/').replace('https://', '').replace('http://', '')+'_webdir.txt' if Scan_OUTPUT == 0 else Scan_OUTPUT #写文件名
+        truncate = open(str(self.Scan_OUTPUT),'w')
         truncate.close()
         
         self._loadHeaders()#请求头
-        self._analysis404()#404处理
+        self._analysis404()#404界面标例
         self.STOP_ME = False
 
         loop = asyncio.get_event_loop()
@@ -276,13 +279,15 @@ class httpx_dirscan():#携程扫描目录
         
     def _loadDict(self, dict_list):
         self.q = queue.Queue()
-        with open(dict_list,encoding='utf-8') as f:
+
+        with open(dict_list,encoding='utf-8') as f:#读取字典txt
             for line in f:
                 if line[0:1] != '#':
-                    self.q.put(line.strip())
-        if self.q.qsize() > 0:
+                    self.q.put(line.strip())#依次推入self.p链表
+
+        if self.q.qsize() > 0:          #有
             print (Str.DICT_TOTAL+format(self.q.qsize()))
-        else:
+        else:                   #空
             print (Str.ERROT_DICT)
             quit()
 
@@ -290,34 +295,47 @@ class httpx_dirscan():#携程扫描目录
         self.headers = {
             'Accept': '*/*',
             'Referer': 'http://www.baidu.com',
-            'User-Agent': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; ',
+            'User-Agent': 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; CIBA;',
             'Cache-Control': 'no-cache',
         }
+
     def _analysis404(self):
         notFoundPage = hp.get(self.Scan_URL + '/songgeshigedashuaibi/hello.html',proxies=proxy)
         self.notFoundPageText = notFoundPage.text.replace('/songgeshigedashuaibi/hello.html', '')
 
     def _writeOutput(self, result):
-        self.lock.acquire()
+        #self.lock.acquire()# results = await asyncio.gather(*tasks)
         with open(self.Scan_OUTPUT, 'a+') as f:
             f.write(result + '\n')
-        self.lock.release()
+        #self.lock.release()
 
-    def _scan(self, url):
+    async def scan(self, url):
         html_result = 0
         try:
-            html_result = hp.get(url, headers=self.headers,proxies=proxy,timeout=30)
-        except hp.ConnectTimeout:
+            #print(Str.NOW_TRYING+self.q.get())
+            html_result = hp.get(url, headers=self.headers,timeout=2)
+        except hp.ConnectTimeout:#防止被封锁
             # print 'Request Timeout:%s' % url
+            #await asyncio.sleep(2)
             pass
         finally:
             if html_result != 0:
                 if html_result.status_code == 200 and html_result.text != self.notFoundPageText:
                     print ('[%i]%s' % (html_result.status_code, html_result.url))
-                    self._writeOutput('[%i]%s' % (html_result.status_code, html_result.url))
-
+                    self._writeOutput('[%i]%s' % (html_result.status_code, html_result.url))#扫描一个写一个
+                    
     async def run(self):
         tasks = []
-        for i in range(1, 5):
-            tasks.append(asyncio.create_task(func1(i)))
+        for i2 in range(1,int(self.q.qsize())//self.Asyncio_Num):
+            for i in range(1, self.Asyncio_Num):
+                ScanING_URL = self.Scan_URL + self.q.get()
+                tasks.append(asyncio.create_task(self.scan(ScanING_URL)))
+            '''
+            if int(self.q.qsize())%self.Asyncio_Num>0:#如果有余数，将剩下的也扫完
+                while not self.q.empty():
+                    ScanING_URL = self.Scan_URL + self.q.get()
+                    self.scan(ScanING_URL)
+        results = await asyncio.gather(*tasks)
+        for result in results:
+            print(f"{result}")'''
 #end

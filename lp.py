@@ -94,10 +94,11 @@ if  __name__ == '__main__':
 
             while True:
                 order=input("Lsploit>")
+                
                 if "set" in order:
                     order_deal_Setting(order)
                 else:
-                    order_deal_Common(order,demo_json["proxy"]) 
+                    order_deal_Common(order,demo_json["proxy"])
 
     except KeyboardInterrupt:
         print("\nbye")
