@@ -17,7 +17,6 @@ import httpx as hp
 import threading
 import asyncio
 
-from .strings import MessageSign as Sign
 
 #设置语言
 if not __name__ == '__main__':
@@ -80,7 +79,7 @@ def start_dirscan(URL,Dict,thread=60):     #启动Dirscan类
             try:
                 time.sleep(0.1)
             except KeyboardInterrupt as e:
-                print (f'\n{Sign.STR}{Str.STOPING},{Str.THREAD_EXIT},{Str.THREAD_TOTAL}{format(threading.activeCount())}')
+                print (f'\n{Str.STOPING},{Str.THREAD_EXIT},{Str.THREAD_TOTAL}{format(threading.activeCount())}')
                 scan.STOP_ME = True
 
     print (Str.SUCCESS_SCAN)
@@ -325,11 +324,12 @@ class httpx_dirscan():#携程扫描目录
                     self._writeOutput('[%i]%s' % (html_result.status_code, html_result.url))#扫描一个写一个
                     
     async def run(self):
-        tasks = []
-        for i2 in range(1,int(self.q.qsize())//self.Asyncio_Num):
-            for i in range(1, self.Asyncio_Num):
-                ScanING_URL = self.Scan_URL + self.q.get()
-                tasks.append(asyncio.create_task(self.scan(ScanING_URL)))
+        try:
+            tasks = []
+            for i2 in range(1,int(self.q.qsize())//self.Asyncio_Num):
+                for i in range(1, self.Asyncio_Num):
+                    ScanING_URL = self.Scan_URL + self.q.get()
+                    tasks.append(asyncio.create_task(self.scan(ScanING_URL)))
             '''
             if int(self.q.qsize())%self.Asyncio_Num>0:#如果有余数，将剩下的也扫完
                 while not self.q.empty():
@@ -338,4 +338,6 @@ class httpx_dirscan():#携程扫描目录
         results = await asyncio.gather(*tasks)
         for result in results:
             print(f"{result}")'''
+        except KeyboardInterrupt:
+            print(Str.STOPING)
 #end

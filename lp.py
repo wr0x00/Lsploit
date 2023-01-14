@@ -27,7 +27,7 @@ if demo_json["first"]==True:    #第一次使用该程序
         from libs.strings import String_CN as String        
         print('\033[33m')   #黄色标记开始
         print(String.WARNING+"\n")  #警告语
-        print(f"{String.LOCALHOST_LAN}{socket.gethostname()}")  #本机名
+        print(f"{String.LOCALNAME}{socket.gethostname()}")  #本机名
         print(f"{String.LOCALHOST_LAN}{socket.gethostbyname(socket.gethostname())}")    #局域地址
         try:
             info=requests.get('http://myip.ipip.net', timeout=5).text
