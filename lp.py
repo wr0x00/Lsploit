@@ -2,7 +2,7 @@
  *@author: wr
  *@GitHub:https://github.com/wr0x00/Lsploit
  *@date: 2022.9.9
- *@description: 程序入口
+ *@description: 命令行程序入口
 '''
 from order import *
 import json

@@ -1,11 +1,9 @@
 '''
  *@author: wr
  *@GitHub:https://github.com/wr0x00/Lsploit
- *@date: 2022.8.21
- *@description: 命令行程序所需显示的所有字符串
+ *@create-date: 2023.1.14
+ *@description: web页面所有字符串
 '''
-
-#CN 
 class MessageSign:
     EXC = '\033[91m'+'[!]'+'\033[1;37;40m'#错误
     STR = '\033[37;42m'+'[*]'+'\033[0m'#重要信息
@@ -67,6 +65,10 @@ class String_CN:
     SUCCESS_SCAN="扫描完成"
     SUCCESS_SSH="ssh爆破成功"
     SUCCESS_SET="设置成功,重启生效"
+    '''html'''
+    TITTEL="LSPLOIT"
+    WELCOME="欢迎回到Lsploit!"
+    ISSUE="到GitHub报告问题"
 #EN
 class String_EN:
     HELP="""
