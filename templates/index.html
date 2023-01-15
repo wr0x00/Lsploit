@@ -10,27 +10,14 @@
 <body>
 <h1 align="center" style="color:greenyellow">{{tittle}}</h1>
 <p align="center">{{welcome}}</p>
-
-	<select id="test_select">
-    <option value="1">显示</option>
-    <option value="2">隐藏</option>
-</select>
-<script>
-	window.onload = function () {
-      var obj_select = document.getElementById("test_select");
-      var obj_div = document.getElementById("test");
-      obj_select.onchange = function () {
-        obj_div.style.display = this.value == 1 ? "block" : clear();
-      }}
-</script>
 	
 <input type="text" id="text-sample" size="15">
 <button onclick="selectText()">执行</button>
 <script>
-	function selectText() {
-        let inputs = document.getElementById("text-sample");
-        inputs.focus();
-		inpution(inputs)
+  var string_ALL;
+	function selectText() { //sbJS，真尼玛难弄
+      var string_ALL.value = document.getElementById("text-sample").value;
+      document.getElementById("h01").innerHTML=window.string_ALL.value;
     }
 	function inpution(str){
 		document.getElementById("h01").innerHTML=str.value;
@@ -40,7 +27,8 @@
 	}
 </script>
 	<hr />
-<p1 id="h01">(这里输出结果)</p1>
+
+  <textarea wdth="100px";height="100px" id="h01">(这里输出结果)</textarea>
 
 <!--结尾-->
 <hr />
@@ -50,6 +38,6 @@
     var date = new Date();
     document.write("Today:"+date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate());
   </script>
-</p>
+
 </body>
 </html>
