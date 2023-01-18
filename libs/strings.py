@@ -67,6 +67,13 @@ class String_CN:
     SUCCESS_SCAN="扫描完成"
     SUCCESS_SSH="ssh爆破成功"
     SUCCESS_SET="设置成功,重启生效"
+    
+    '''html'''
+    TITTEL="LSPLOIT"
+    WELCOME="欢迎回到Lsploit!"
+    ISSUE="到GitHub报告问题"
+    URL="地址："
+    GET="执行"
 #EN
 class String_EN:
     HELP="""
