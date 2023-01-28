@@ -92,7 +92,7 @@ def order_deal_Common(order:str,agent=None):
     if s[0]=='help':
         print(Str.HELP)
 
-    if s[0]=='sw':          #扫描网址目录（线程默认60)
+    elif s[0]=='sw':          #扫描网址目录（线程默认60)
         import httpx
         try:
             if s[2] and not s[3]:
@@ -109,56 +109,66 @@ def order_deal_Common(order:str,agent=None):
         finally:
             print(Str.ERROR_ORDER)
 
-    if s[0]=='sp': 
+    elif s[0]=='sp': 
         try:
             import os,libs.sniff         #扫描端口
-            if "/" in s[1]:         #批量扫描
 
+            if "/" in s[1]:         #批量扫描
                 target=s[1].split(".")
                 max=target[3].split('/')
-
                 online=[]
                 print(Str.LOADING)
 
                 for i in range(int(max[0]),int(max[1])+1):
                     cmd=os.popen('ping  %s' % (target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))).read()
+
                     if "ttl" in cmd or "TTL" in cmd:
                         #print(os.popen('ping  %s' % (target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))).read())
                         online.append(i)
                         continue
+
                     else:              
                         continue
 
                 for i in online:
                     print("[online][+]"+target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))
+
                 for i in online:
                     print("\033[94m[+]"+target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i)+"\033[1;37;40m")
-                    libs.sniff.ScanPort(target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i),int(s[2])).start()    
+                    libs.sniff.ScanPort(target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i),int(s[2]))
+
             else:    
-                libs.sniff.ScanPort(format(s[1]),int(s[2])).start()   
+                libs.sniff.ScanPort(format(s[1]),int(s[2]))  
+
         except IndexError:       
             import os,libs.sniff         #扫描端口
+
             if "/" in s[1]:         #批量扫描
                 target=s[1].split(".")
                 max=target[3].split('/')
                 online=[]
                 print(Str.LOADING)
                 for i in range(int(max[0]),int(max[1])+1):
+
                     if "ms" in os.popen('ping  %s' % (target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))).read():
                         #print(os.popen('ping  %s' % (target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))).read())
                         online.append(i)
                         continue
+
                     else:              
                         continue
+
                 for i in online:
                     print("[online][+]"+target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))
+
                 for i in online:
                     print("\033[94m[+]"+target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i)+"\033[1;37;40m")
-                    libs.sniff.ScanPort(target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i)).start()    
-            else:    
-                libs.sniff.ScanPort(format(s[1])).start()   
+                    libs.sniff.ScanPort(target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))
 
-    if s[0]=='sd':
+            else:    
+                libs.sniff.asyncio_ScanPort(format(s[1]))   
+
+    elif s[0]=='sd':
         import libs.subdomain
         try:
             if s[2]:
@@ -166,18 +176,18 @@ def order_deal_Common(order:str,agent=None):
         except IndexError:
             libs.subdomain.subdomain(format(s[1]),"libs/subdomain.txt")          #扫描子域名(字典默认modules\subdomain.txt)
     
-    if s[0]=='whois':       #whois查询 
+    elif s[0]=='whois':       #whois查询 
         libs.sniff.whois_sniff(format(s[1]))
 
-    if s[0]=='shod':         #shodan
+    elif s[0]=='shod':         #shodan
         libs.sniff.shodan_search(format(s[1]))
 
-    if s[0]=='c':
+    elif s[0]=='c':
         import libs.cms as cms
         cms.set_agent(agent)
         cms.cms(format(s[1]))
 
-    if s[0]=='poc':  
+    elif s[0]=='poc':  
         try:
             import os
             os.system("python libs/ws.py -po " + format(s[2]) + " -t " +s[1])
@@ -185,26 +195,26 @@ def order_deal_Common(order:str,agent=None):
             import os
             os.system("python libs/ws.py" + " -t " + s[1])
     
-    if s[0]=='ssh': 
+    elif s[0]=='ssh': 
         import libs.ssh as r
         if s[4]:
             r.force_ssh(s[1], s[4], s[2], int(s[3]))
         else:
             r.force_ssh(s[1], 'libs/pwddic/password/_top19576.txt', s[2], int(s[3]))
     
-    if s[0]=='webshell': 
+    elif s[0]=='webshell': 
         import libs.webshell as w
         w.set_agent(agent)
         w.exp(s[1], s[2])  
 
-    if s[0]=='dos': 
+    elif s[0]=='dos': 
         import libs.dosattack as y
         try:
             y.exp(s[1], s[2], int(s[3]))
         except IndexError:
             y.exp(s[1], s[2],40)
 
-    if s[0]=='exp': 
+    elif s[0]=='exp': 
         try:
             exp = s[1].replace("-", "_")
             exp = exp.replace("cve", "C")

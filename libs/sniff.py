@@ -176,16 +176,17 @@ def isurl(url)->bool:
 
 class ScanPort:
     # 端口扫描工具
-    def __init__(self,ip,maxport:int=65535):# 注意这个调用需要缀上.start()才能启动
+    def __init__(self,ip,maxport:int=65535):
         self.ip = ip
         self.maxport=maxport
+        self.start()
  
     def scan_port(self, port):
         try:
             info=""
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             res = s.connect_ex((self.ip, port))
-            portwd=open(r'modules/ports.txt','rb')
+            portwd=open(r'libs/ports.txt','rb')
             if res == 0:  # 端口开启
                 content=portwd.readlines()
                 for c in content:   #从ports.txt中查找端口对应的服务        
@@ -335,9 +336,73 @@ class httpx_dirscan():#携程扫描目录
                 while not self.q.empty():
                     ScanING_URL = self.Scan_URL + self.q.get()
                     self.scan(ScanING_URL)
-        results = await asyncio.gather(*tasks)
-        for result in results:
-            print(f"{result}")'''
+            results = await asyncio.gather(*tasks)
+            for result in results:
+            print(f"{result}")
+            '''
         except KeyboardInterrupt:
             print(Str.STOPING)
+
+class asyncio_ScanPort:
+    # 携程端口扫描工具
+    def __init__(self,ip,maxport:int=65535,Asyncio_Num:int=40):
+        print("CURL+c 启动")
+        from datetime import datetime
+        import asyncio
+
+        self.Asyncio_Num=Asyncio_Num#设置携程数
+        self.ip = ip
+        self.maxport=maxport
+        # 开始时间
+        t1 = datetime.now()
+
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.start())
+
+        print(Str.SUCCESS_SCAN+','+Str.TIME_TOTAL+format(datetime.now() - t1))
+        
+
+    async def scan_port(self, port):
+        try:
+            info=""
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            #s.settimeout=3
+            res = s.connect_ex((self.ip, port))
+            s.close()
+            portwd=open(r'libs/ports.txt','rb')
+            if res == 0:  # 端口开启
+                content=portwd.readlines()
+                for c in content:   #从ports.txt中查找端口对应的服务        
+                    if str(port)+Str.PORT in c.decode(encoding='UTF-8'):
+                        info=c.decode(encoding='UTF-8').strip(str(port)+"端口：")
+                        break
+                    else:
+                        continue
+                print(f'地址:{format(self.ip)}\033[0;32;40m{Str.PORT}:{str(port)} \033[0m\t{info}')
+                with open(self.ip+"_port",'a+',encoding="utf-8") as f:
+                    f.write(str(port) +"\t"+info+'\n')
+                
+        except KeyboardInterrupt:
+            s.close()
+ 
+    async def start(self):
+        import time
+        try:
+            self.q = queue.Queue()
+            for i in range(0,self.maxport):self.q.put(i)
+            socket.setdefaulttimeout(0.5)
+            truncate = open(self.ip+"_port",'w')
+            truncate.close()
+            print(Str.LOADING)
+        
+        
+            # 设置携程
+            tasks = []
+            while self.q.qsize()>1:
+                for i in range(1, self.Asyncio_Num):
+                    tasks.append(asyncio.create_task(self.scan_port(self.q.get())))  
+
+        except TimeoutError:
+            print(Str.STOPING)
+            pass
 #end
