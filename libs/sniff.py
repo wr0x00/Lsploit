@@ -13,6 +13,7 @@ from tokenize import String
 from weakref import proxy
 import requests
 import httpx as hp
+from signal import SIGINT, SIGTERM
 
 import threading
 import asyncio
@@ -256,6 +257,10 @@ class ScanPort_:
 class httpx_dirscan():#携程扫描目录
     def __init__(self, Scan_URL, Scan_DICT,Asyncio_Num=60,Scan_OUTPUT=0) -> None:
         import asyncio
+
+        from datetime import datetime
+        t1 = datetime.now()
+
         self.Asyncio_Num = Asyncio_Num#设置携程数
 
         print (Str.LOADING+Scan_URL)
@@ -276,6 +281,9 @@ class httpx_dirscan():#携程扫描目录
 
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.run())
+
+        print(Str.SUCCESS_WRITTEN+self.Scan_OUTPUT)
+        print(Str.SUCCESS_SCAN+','+Str.TIME_TOTAL+format(datetime.now() - t1))
         
     def _loadDict(self, dict_list):
         self.q = queue.Queue()
@@ -346,19 +354,24 @@ class httpx_dirscan():#携程扫描目录
 class asyncio_ScanPort:
     # 携程端口扫描工具
     def __init__(self,ip,maxport:int=65535,Asyncio_Num:int=40):
-        print("CURL+c 启动")
+        #print("CURL+c 启动")
+        
         from datetime import datetime
         import asyncio
 
         self.Asyncio_Num=Asyncio_Num#设置携程数
         self.ip = ip
         self.maxport=maxport
+        self.SCAN_OUTPUT=self.ip+"_port"
+
         # 开始时间
         t1 = datetime.now()
 
+        #self.start()
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.start())
 
+        print(Str.SUCCESS_WRITTEN+self.SCAN_OUTPUT)
         print(Str.SUCCESS_SCAN+','+Str.TIME_TOTAL+format(datetime.now() - t1))
         
 
@@ -379,14 +392,20 @@ class asyncio_ScanPort:
                     else:
                         continue
                 print(f'地址:{format(self.ip)}\033[0;32;40m{Str.PORT}:{str(port)} \033[0m\t{info}')
-                with open(self.ip+"_port",'a+',encoding="utf-8") as f:
+                with open(self.SCAN_OUTPUT,'a+',encoding="utf-8") as f:
                     f.write(str(port) +"\t"+info+'\n')
                 
-        except KeyboardInterrupt:
+        except asyncio.CancelledError:
             s.close()
  
+        def handler(sig):  
+            self.loop.stop()  
+            print(f'Got signal: {sig!s}, shutting down.')
+            self.loop.remove_signal_handler(SIGTERM)  
+            self.loop.add_signal_handler(SIGINT, lambda: None)
+
     async def start(self):
-        import time
+        #import time
         try:
             self.q = queue.Queue()
             for i in range(0,self.maxport):self.q.put(i)
@@ -395,14 +414,34 @@ class asyncio_ScanPort:
             truncate.close()
             print(Str.LOADING)
         
-        
             # 设置携程
             tasks = []
-            while self.q.qsize()>1:
-                for i in range(1, self.Asyncio_Num):
+            
+            for j in range(int(self.q.qsize())//self.Asyncio_Num):
+                for i in range(self.q.qsize()):
                     tasks.append(asyncio.create_task(self.scan_port(self.q.get())))  
+            #await asyncio.gather(*tasks,return_exceptions=True)
+            
+            #tasks = [self.scan_port(self.q.qsize()) for i in range(self.maxport)]
+            #loop = asyncio.get_event_loop()
+            #loop.run_until_complete(asyncio.wait(tasks))
+            '''
+            self.loop = asyncio.get_event_loop()
+            for sig in (SIGTERM, SIGINT):  
+                self.loop.add_signal_handler(sig, self.handler, sig)
 
-        except TimeoutError:
+
+            self.loop.create_task(main())
+            self.loop.run_forever()  
+            tasks = asyncio.all_tasks(loop=self.loop)
+            for t in tasks:
+                t.cancel()
+            group = asyncio.gather(*tasks, return_exceptions=True)
+            self.loop.run_until_complete(group)
+            self.loop.close()
+            '''
+
+        except KeyboardInterrupt:
             print(Str.STOPING)
             pass
 #end

@@ -14,8 +14,11 @@ let b="";
 <h1 align="center" style="color:greenyellow">{{tittle}}</h1>
 <p>
 {{url}}
-<input type="text" id="f_url" size="15">
-<button id="c1">{{get}}</button>
+<form action="/sw/do" method="post">
+<input type="text" name="f_url" size="15">
+<input type="submit" value={{do}}>
+</form>
+
 <script>
 	function selectText(str) { //连续录入字符       //sbJS，真尼玛难弄
       string_ALL=b;
@@ -46,8 +49,6 @@ let b="";
 	}
 </script>
 	<hr />
-
-  <textarea wdth="300px";height="1000px" id="h01">(这里输出结果)</textarea>
 
 <!--结尾-->
 <hr />

@@ -36,11 +36,12 @@ def cve_info():
     x = PrettyTable(["最新漏洞", "时间", "详情"])#绘制表格
     x.align["最新漏洞"] = "1" 
     x.padding_width = 1  # 填充宽度
-
-    url="https://lyy289065406.github.io/threat-broadcast/"
-    header = {'User-Agent': 'Mozilla/5.0 (Mac NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.93 Safari/537.36'}
-    r=rq.get(url,headers=header,timeout=2)
-
+    try:
+        url="https://lyy289065406.github.io/threat-broadcast/"
+        header = {'User-Agent': 'Mozilla/5.0 (Mac NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.93 Safari/537.36'}
+        r=rq.get(url,headers=header,timeout=2)
+    except requests.exceptions.ReadTimeout:
+        print(Str.ERROR_CONNECT)
     soup=b(r.text,'html.parser')
     items=soup.find_all('tr')
 
@@ -166,7 +167,7 @@ def order_deal_Common(order:str,agent=None):
                     libs.sniff.ScanPort(target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))
 
             else:    
-                libs.sniff.asyncio_ScanPort(format(s[1]))   
+                libs.sniff.ScanPort(format(s[1]))   
 
     elif s[0]=='sd':
         import libs.subdomain

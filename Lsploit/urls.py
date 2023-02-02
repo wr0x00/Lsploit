@@ -21,6 +21,7 @@ from .import view
 
 urlpatterns = [
     path("",view.index),
-    path("sw/",view.sw)
+    path("sw/",view.sw),
+    path("sw/do",view.sw_do),
     #path("admin/", admin.site.urls),
 ]
