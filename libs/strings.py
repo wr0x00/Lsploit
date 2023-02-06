@@ -16,7 +16,7 @@ class String_CN:
     HELP="""
 常用：
         sw 网址或IP地址 线程数 字典路径      扫描网址目录（线程默认60,字典默认\modules\dict.t
-        sp IP地址  最大端口               扫描端口（最大端口默认65535）
+        sp IP地址  最大端口               扫描端口（最大端口默认65535）,支持D段‘/’批量扫描
         sd 网址 字典路径             扫描子域名(字典默认modules\subdomain.txt)
         whois 网址                  whois查询
         shod 字符串                 shodan批量检索IP
