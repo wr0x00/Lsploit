@@ -167,7 +167,7 @@ def order_deal_Common(order:str,agent=None):
                     libs.sniff.ScanPort(target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))
 
             else:    
-                libs.sniff.ScanPort(format(s[1]))   
+                libs.sniff.asyncio_ScanPort(format(s[1]))   
 
     elif s[0]=='sd':
         import libs.subdomain

@@ -395,15 +395,15 @@ class asyncio_ScanPort:
                 with open(self.SCAN_OUTPUT,'a+',encoding="utf-8") as f:
                     f.write(str(port) +"\t"+info+'\n')
                 
-        except asyncio.CancelledError:
+        except KeyboardInterrupt:
             s.close()
- 
-        def handler(sig):  
+        '''
+        def handler(sig):
             self.loop.stop()  
             print(f'Got signal: {sig!s}, shutting down.')
             self.loop.remove_signal_handler(SIGTERM)  
             self.loop.add_signal_handler(SIGINT, lambda: None)
-
+        '''
     async def start(self):
         #import time
         try:
