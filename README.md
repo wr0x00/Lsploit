@@ -65,6 +65,7 @@ Lsploit>help
         
 Lsploit>
 ```
+注意命令中间是用空格区分。
 ### 已测试
  * windows 10
  * termux(Android)
