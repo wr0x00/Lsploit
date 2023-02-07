@@ -10,10 +10,13 @@ lsploit为实战而设计的渗透测试框架,配合httpx、asyncio拥有高性
 ### 安装
 ```shell
 git clone https://github.com/wr0x00/Lsploit
+
 cd Lsploit
+
 pip install -r requirement.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 
-pip install requests -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install bs4 -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install prettytable -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install requests -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install bs4 -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install prettytable -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install httpx[http2] -i https://pypi.tuna.tsinghua.edu.cn/simple
+
 ```
 ### 使用
 ```shell
