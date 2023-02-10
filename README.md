@@ -186,7 +186,7 @@ Lsploit>sp 127.0.0.1
     ├── results.html
     └── sw.html
 ```
-详细信息见wiki
+详细信息见[wiki](https://github.com/wr0x00/Lsploit/wiki)
 
 ### 声明
 **用户使用本项目所触犯的一切法律责任与本项目作者无关，使用即接受此声明**
