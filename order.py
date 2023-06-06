@@ -89,54 +89,49 @@ def order_deal_Setting(order:str):
 def order_deal_Common(order:str,agent=None):
     import libs
     s=order.split()
-
-    if s[0]=='help':
-        print(Str.HELP)
+    try:
+        print(s[0]) 
+    except IndexError:  
+        print(Str.ERROR_ORDER)
+        return None
+    
+    if s[0]=='help':    print(Str.HELP)
 
     elif s[0]=='sw':          #扫描网址目录（线程默认60)
         import httpx
         try:
-            if s[2] and not s[3]:
-                libs.sniff.httpx_dirscan(format(s[1]), "libs/dict.txt", int(s[2]))
-            if s[3] and s[2]:
-                libs.sniff.httpx_dirscan(format(s[1]), s[3], int(s[2]))
+            if s[2] and not s[3]:           libs.sniff.httpx_dirscan(format(s[1]), "libs/dict.txt", int(s[2]))
+            if s[3] and s[2]:               libs.sniff.httpx_dirscan(format(s[1]), s[3], int(s[2]))
         except IndexError:
-            try:
-                libs.sniff.httpx_dirscan(format(s[1]), "libs/dict.txt",60)
-            except httpx.ConnectTimeout:
-                print(Str.ERROR_CONNECT)
-        except httpx.ConnectTimeout:
-            print(Str.ERROR_CONNECT)
-        finally:
-            print(Str.ERROR_ORDER)
+            try:                            libs.sniff.httpx_dirscan(format(s[1]), "libs/dict.txt",60)
+            except httpx.ConnectTimeout:    print(Str.ERROR_CONNECT)
+        except httpx.ConnectTimeout:        print(Str.ERROR_CONNECT)
+        finally:                            print(Str.ERROR_ORDER)
 
     elif s[0]=='sp': 
         try:
             import os,libs.sniff         #扫描端口
 
             if "/" in s[1]:         #批量扫描
-                target=s[1].split(".")
-                max=target[3].split('/')
-                online=[]
                 print(Str.LOADING)
+                target          =s[1].split(".")
+                max             =target[3].split('/')
+                online          =[]
 
                 for i in range(int(max[0]),int(max[1])+1):
                     cmd=os.popen('ping  %s' % (target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))).read()
-
                     if "ttl" in cmd or "TTL" in cmd:
                         #print(os.popen('ping  %s' % (target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))).read())
                         online.append(i)
                         continue
-
-                    else:              
-                        continue
+                    else:continue
 
                 for i in online:
-                    print("[online][+]"+target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))
+                                    print(Str.ONLINE+target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))
 
                 for i in online:
-                    print("\033[94m[+]"+target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i)+"\033[1;37;40m")
-                    libs.sniff.ScanPort(target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i),int(s[2]))
+                                    print("\033[94m[+]"+target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i)+"\033[1;37;40m")
+                                    libs.sniff.ScanPort(target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i),int(s[2]))
 
             else:    
                 libs.sniff.ScanPort(format(s[1]),int(s[2]))  
@@ -150,21 +145,16 @@ def order_deal_Common(order:str,agent=None):
                 online=[]
                 print(Str.LOADING)
                 for i in range(int(max[0]),int(max[1])+1):
-
                     if "ms" in os.popen('ping  %s' % (target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))).read():
-                        #print(os.popen('ping  %s' % (target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))).read())
-                        online.append(i)
-                        continue
-
-                    else:              
-                        continue
-
+                                    #print(os.popen('ping  %s' % (target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))).read())
+                                    online.append(i)
+                                    continue
+                    else:           continue
                 for i in online:
-                    print("[online][+]"+target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))
-
+                                    print(Str.ONLINE+target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))
                 for i in online:
-                    print("\033[94m[+]"+target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i)+"\033[1;37;40m")
-                    libs.sniff.ScanPort(target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))
+                                    print("\033[94m[+]"+target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i)+"\033[1;37;40m")
+                                    libs.sniff.ScanPort(target[0]+'.'+target[1]+'.'+target[2]+'.'+str(i))
 
             else:    
                 libs.sniff.asyncio_ScanPort(format(s[1]))   
