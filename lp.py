@@ -12,6 +12,9 @@ def ip_position(ip):#查询ip归属地api
     import requests as r
     print(r.get("http://ip-api.com/json/"+format(ip)+"?lang=zh-CN").text)
 
+def exit_():
+    print("\nbye")
+    exit()
 
 with open("libs/configs.json", "r",encoding='utf-8') as jsonFile:
     demo_json = json.load(jsonFile)
@@ -33,8 +36,7 @@ if demo_json["first"]==True:    #第一次使用该程序
             info=requests.get('http://myip.ipip.net', timeout=5).text
             print(String.LOCALHOST_WAN+info)    #广域地址
             #ip_position(re.findall("\d+",info))
-        except requests.exceptions.ConnectionError:
-            pass
+        except requests.exceptions.ConnectionError:pass
         print('\033[1;37;40m')#黄色标记结束
 
 
@@ -48,8 +50,7 @@ if demo_json["first"]==True:    #第一次使用该程序
             info=requests.get('http://myip.ipip.net', timeout=5).text
             print(String.LOCALHOST_WAN+info)    #广域地址
             #ip_position(re.findall("\d+",info))
-        except requests.exceptions.ConnectionError:
-            pass
+        except requests.exceptions.ConnectionError:pass
         print('\033[1;37;40m')#黄色标记结束
 
 
@@ -75,36 +76,24 @@ if  __name__ == '__main__':
     j=open("libs/configs.json",encoding='utf-8')
     demo_json = json.loads(j.read())
 
-    if demo_json["language"]=='cn'or demo_json["language"]=='CN':
-        from libs.strings import String_CN as Str #中文
-    if demo_json["language"]=='en'or demo_json["language"]=='EN':
-        from libs.strings import String_EN as Str #英文  
+    if demo_json["language"]=='cn'or demo_json["language"]=='CN':from libs.strings import String_CN as Str #中文
+    if demo_json["language"]=='en'or demo_json["language"]=='EN':from libs.strings import String_EN as Str #英文  
     
+    print(banner)
     try:
-        while True:
-            print(banner)
-            try:
-                cve_info()
-                info=requests.get('http://myip.ipip.net',proxies=demo_json["proxy"],timeout=5).text
-                print('\033[91m'+info+'\033[1;37;40m')    #广域地址
-            except requests.exceptions.SSLError:
-                print("站貌似是崩了。。。")
-            except requests.exceptions.ConnectionError:
-                pass
-
-            while True:
-                order=input("Lsploit>")
-                
-                if "set" in order:
-                    order_deal_Setting(order)
-                else:
-                    try:
-                        order_deal_Common(order,demo_json["proxy"])              
-                    except IndexError:pass
-
-    except KeyboardInterrupt:
-        print("\nbye")
-        exit()
-
+        cve_info()
+        info=requests.get('http://myip.ipip.net',proxies=demo_json["proxy"],timeout=5).text
+        print('\033[91m'+info+'\033[1;37;40m')    #广域地址
+    except requests.exceptions.SSLError: print("站貌似是崩了。。。")
+    except requests.exceptions.ConnectionError:pass
+    
+    while True:
+        try:                        order=input("Lsploit>")
+        except KeyboardInterrupt:   exit_()
+        except IndexError:          continue
+        if order == "exit":         exit_()
+        if "set" in order:          order_deal_Setting(order)
+        else:                       order_deal_Common(order,demo_json["proxy"])              
+    
 
 #end
