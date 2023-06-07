@@ -33,30 +33,32 @@ def cve_info():
     from prettytable import PrettyTable
     import json
 
-    x = PrettyTable(["最新漏洞", "时间", "详情"])#绘制表格
+    x                   = PrettyTable(["最新漏洞", "攻击类型", "CVE ID","披露时间"])#绘制表格
     x.align["最新漏洞"] = "1" 
-    x.padding_width = 1  # 填充宽度
+    x.padding_width     = 1  # 填充宽度
     try:
-        url="https://lyy289065406.github.io/threat-broadcast/"
-        header = {'User-Agent': 'Mozilla/5.0 (Mac NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.93 Safari/537.36'}
-        r=rq.get(url,headers=header,timeout=2)
+        url     ="https://sec.sangfor.com.cn/security-vulnerability"
+        header  ={'User-Agent': 'Mozilla/5.0 (Mac NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.93 Safari/537.36'}
+        r       =rq.get(url,headers=header,timeout=2)
     except rq.exceptions.ReadTimeout:
         print(Str.ERROR_CONNECT)
-    soup=b(r.text,'html.parser')
-    items=soup.find_all('tr')
+    soup            =b(r.text,'html.parser')
+    items_center    =soup.find_all(class_="sfv-table_cell sfv-ellipsis sfv-table_cell-center")#<td id="sf-id-241" class="sfv-table_cell sfv-ellipsis sfv-table_cell-center" sfv="" style="width: 115px; height: 40px;"><div data-v-6a409da2="" data-v-b5e1d624="" class="radius-label label-border-radius" style="border-color: rgb(238, 85, 85); color: rgb(255, 255, 255); background-color: rgb(238, 85, 85); padding: 1px 11px 4px; height: 18px;"><span data-v-6a409da2="">高危</span></div></td>
+    items_left      =soup.find_all(class_="sfv-table_cell sfv-ellipsis sfv-table_cell-left")#<td id="sf-id-236" class="sfv-table_cell sfv-ellipsis sfv-table_cell-left" sfv="" style="width: 314px; height: 40px;"><span data-v-b5e1d624="" class="link-hover-blue">Google Chrome类型混淆漏洞(CVE-2023-3079)</span></td>
+    j               =open("libs/configs.json",encoding='utf-8')
+    demo_json       =json.loads(j.read())
+    max             =int(demo_json["news"])+1
 
-    j=open("libs/configs.json",encoding='utf-8')
-    demo_json = json.loads(j.read())
-    max=int(demo_json["news"])+1
+    for i in items_left[1:max]:
+        #tds =i.find_all('td')
+        name=i.text
+        type=i.text
+        cvei=i.text
+        time=i.text
+        x.add_row([name,type,cvei,time])
 
-    for i in items[1:max]:
-        tds=i.find_all('td')
-        cve_info=tds[3].text
-        time=tds[2].text
-        for MORE_url in i.find_all('a'):x.add_row([cve_info,time,MORE_url.get('href')])
-
-    print(x)
-    print("\t\t\t\t----数据来源:https://lyy289065406.github.io/threat-broadcast")
+    #print(r.text,soup,soup.text,items_left,items_center,x)
+    print("\t\t\t\t----数据来源:https://sec.sangfor.com.cn/security-vulnerability")
     print("(使用setnows设置播报漏洞条数,例如“setnows 2”)\t\t\tCURL+c 退出")
 
 
