@@ -63,7 +63,7 @@ class String_CN:
     ERROR_IP_FORMAT         =MessageSign.EXC+"IP地址格式不正确"
     ERROR_CONNECT           =MessageSign.EXC+"无法连接 :("
     ERROT_DICT              =MessageSign.EXC+"字典为空 :("
-    ERROR_ORDER             =MessageSign.EXC+"命令错误"
+    ERROR_ORDER             =MessageSign.EXC+"命令错误,输入'help'查看帮助"
 #SUCCESS
     SUCCESS_SCAN            =MessageSign.PLS+"扫描完成"
     SUCCESS_SSH             =MessageSign.PLS+"ssh爆破成功"
@@ -128,7 +128,7 @@ class String_EN:
     ERROR_IP_FORMAT         =MessageSign.EXC+"IP address format is wrong"
     ERROR_CONNECT           =MessageSign.EXC+"connect error :("
     ERROT_DICT              =MessageSign.EXC+"dictionary is none :("
-    ERROR_ORDER             =MessageSign.EXC+"order error"
+    ERROR_ORDER             =MessageSign.EXC+"command error"
 
     SUCCESS_SCAN            ="scanning over"
     SUCCESS_SSH             ="ssh brute force crack successful"
