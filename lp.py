@@ -21,7 +21,7 @@ with open("libs/configs.json", "r",encoding='utf-8') as jsonFile:
 
 
 if demo_json["first"]==True:    #第一次使用该程序
-    import requests,socket
+    import requests,socket,os
 
     language=input("choose your local language/选择你的语言(EN|en|CN|cn):")
     demo_json["language"]=language
@@ -38,7 +38,7 @@ if demo_json["first"]==True:    #第一次使用该程序
             #ip_position(re.findall("\d+",info))
         except requests.exceptions.ConnectionError:pass
         print('\033[1;37;40m')#黄色标记结束
-
+        print(String.INSTALL)
 
     if demo_json["language"]=='en'or demo_json["language"]=='EN': #英文
         from libs.strings import String_EN as String   
@@ -52,11 +52,13 @@ if demo_json["first"]==True:    #第一次使用该程序
             #ip_position(re.findall("\d+",info))
         except requests.exceptions.ConnectionError:pass
         print('\033[1;37;40m')#黄色标记结束
-
+        print(String.INSTALL)
 
     demo_json["first"]=False
     with open("libs/configs.json", "w") as jsonFile:
         json.dump(demo_json, jsonFile,ensure_ascii=False)
+    
+    os.system("pip install -r requirement.txt -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install requests -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install bs4 -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install prettytable -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install httpx[http2] -i https://pypi.tuna.tsinghua.edu.cn/simple")
 
 banner="""
 \033[32m
@@ -84,7 +86,7 @@ if  __name__ == '__main__':
         cve_info()
         info=requests.get('http://myip.ipip.net',proxies=demo_json["proxy"],timeout=5).text
         print('\033[91m'+info+'\033[1;37;40m')    #广域地址
-    except requests.exceptions.SSLError: print("站貌似是崩了。。。")
+    except requests.exceptions.SSLError: print("无漏洞播报，漏洞站貌似是崩了。。。")
     except requests.exceptions.ConnectionError:pass
     
     while True:

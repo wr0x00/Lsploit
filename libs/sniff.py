@@ -11,9 +11,10 @@ import queue
 import socket
 from tokenize import String
 from weakref import proxy
-import requests
+import requests as rq
 import httpx as hp
 from signal import SIGINT, SIGTERM
+from libs.config.config import Config
 
 import threading
 import asyncio
@@ -65,6 +66,25 @@ def shodan_search(str)->None:
         print(Str.RESULTS_TOTAL+format(results['total']))
     except shodan.APIError as e:
         print (Str.ERROR_CONNECT+":"+e)
+
+def fqfa_search(str,n=200)->None:
+    '''
+    功能：佛法批量搜索
+    参数: str关键字
+          n索引数量
+    '''
+    import base64
+    cg = Config()
+    try:
+        rd=rq.get("https://fofa.info/api/v1/search/all?"+
+                "&key=" + cg.fqfa_key + 
+                "&qbase64=" + format(base64.b64encode(str.encode("utf-8")))+
+                "&size="+ format(n)
+                )
+        print(rd.json())
+    except rq.exceptions.ConnectionError:
+        print (Str.ERROR_CONNECT+"  FQFA")
+
 
 def start_dirscan(URL,Dict,thread=60):     #启动Dirscan类          
     scan = Dirscan(URL, Dict, 0, thread)

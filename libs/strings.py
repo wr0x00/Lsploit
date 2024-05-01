@@ -20,6 +20,7 @@ class String_CN:
         sd 网址 字典路径                        扫描子域名(字典默认modules\subdomain.txt)
         whois 网址                              whois查询
         shod 字符串                             shodan批量检索IP
+        fqfa 字符串 数量                        fqfa批量索引ip(数量默认100,在libs/config/keys.yml输入你的fqfa_key)
         c 网址                                  cms检测
         poc 地址 端口                           poc检测（端口默认80）
 
@@ -35,7 +36,7 @@ class String_CN:
 #NORMAL  
     WARNING="""该项目仅用于学习交流目地，使用者所触犯的一切法律责任与本项目作者无关\n
                          一切未经允许的测试行动皆属于违法行为，请保持清醒，自行斟酌\n"""
-    
+    INSTALL                 =MessageSign.PLS+"正在安装依赖项..."
     LOCALNAME               ="本机名称:"
     LOCALHOST_LAN           ="本机局域网地址:"
     LOCALHOST_WAN           ="本机广域网地址:"
@@ -86,6 +87,7 @@ class String_EN:
         sd 网址 字典路径                        扫描子域名(字典默认modules\subdomain.txt)
         whois 网址                              whois查询
         shod 字符串                             shodan批量检索IP
+        fqfa 字符串 数量                        fqfa批量索引ip(数量默认100)
         c 网址                                  cms检测
         poc 地址 端口                           poc检测（端口默认80）
 
@@ -101,7 +103,7 @@ class String_EN:
 
     WARNING="""The project is only used for the purpose of learning and communication, the legal responsibility of the user has nothing to do with the author of the project\n
             all unauthorized test actions are illegal, please stay sober and consider it yourself.\n"""
-    
+    INSTALL                 =MessageSign.PLS+"installing requirement..."
     LOCALNAME               ="local name:"
     LOCALHOST_LAN           ="your LAN:"
     LOCALHOST_WAN           ="your WAN:"

@@ -53,6 +53,7 @@ Lsploit>help
         sd 网址 字典路径             扫描子域名(字典默认modules\subdomain.txt)
         whois 网址                  whois查询
         shod 字符串                 shodan批量检索IP
+        fqfa 字符串 数量            fqfa批量索引ip(数量默认100,在libs/config/keys.yml输入你的fqfa_key)
         c 网址                      cms检测
         poc 地址 端口                poc检测（端口默认80）
 

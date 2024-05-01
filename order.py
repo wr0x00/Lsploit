@@ -170,6 +170,12 @@ def order_deal_Common(order:str,agent=None):
 
     elif s[0]=='shod':         #shodan
         libs.sniff.shodan_search(format(s[1]))
+    
+    elif s[0]=='fqfa':         #fqfa
+        try:
+            if s[2]:libs.sniff.fqfa_search(format(s[1]),s[2])
+        except IndexError:
+            libs.sniff.fqfa_search(format(s[1]))  
 
     elif s[0]=='c':
         import libs.cms as cms
