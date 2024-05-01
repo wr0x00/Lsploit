@@ -82,12 +82,13 @@ if  __name__ == '__main__':
     if demo_json["language"]=='en'or demo_json["language"]=='EN':from libs.strings import String_EN as Str #英文  
     
     print(banner)
-    try:
-        cve_info()
-        info=requests.get('http://myip.ipip.net',proxies=demo_json["proxy"],timeout=5).text
-        print('\033[91m'+info+'\033[1;37;40m')    #广域地址
+
+    try:cve_info()    
     except requests.exceptions.SSLError: print("无漏洞播报，漏洞站貌似是崩了。。。")
     except requests.exceptions.ConnectionError:pass
+
+    info=requests.get('http://myip.ipip.net',timeout=5).text
+    print('\033[91m'+info+'\033[1;37;40m')    #广域地址
     
     while True:
         try:                        order=input("Lsploit>")
