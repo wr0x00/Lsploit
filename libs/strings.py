@@ -41,7 +41,7 @@ class String_CN:
     LOCALHOST_LAN           ="本机局域网地址:"
     LOCALHOST_WAN           ="本机广域网地址:"
     LOADING                 =MessageSign.PLS+"正在启动..."
-    RESULTS_TOTAL           =MessageSign.PLS+"共找到:"
+    RESULTS_TOTAL           =MessageSign.PLS+"共计:"
     DICT_TOTAL              =MessageSign.PLS+"字典总计:"
     THREAD_TOTAL            =MessageSign.PLS+"线程总计:"
     STOPING                 =MessageSign.PLS+"正在停止..."

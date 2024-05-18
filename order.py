@@ -98,8 +98,29 @@ def order_deal_Common(order:str,agent=None):
     
     if s[0]=='help':    print(Str.HELP)
 
+    elif s[0]=='show':  #列出
+           try:
+                import libs.tools
+                if s[1]== "exp" or s[1]== "exps": libs.tools.search.expand_exp()
+                if s[1]== "poc" or s[1]== "pocs": libs.tools.search.expand_poc()
+           except IndexError:               print(Str.ERROR_ORDER)
+
+    elif s[0]=='survey':    #（调查）查看选项的详细信息
+        try:
+            import libs.tools
+            libs.tools.search.detail(int(s[1]))
+        except IndexError:                  print(Str.ERROR_ORDER)
+
+    elif s[0]=='chose':     #选择序号
+        try:
+            import libs.tools
+            from libs.config.config import Config
+            libs.tools.search.detail(int(s[1]))
+            Config.change_config_file(Config().fothers,"others","status_minor",int(s[1]))
+        except IndexError:                  print(Str.ERROR_ORDER)
+
     elif s[0]=='sw':          #扫描网址目录（线程默认60)
-        import httpx
+        import httpx       
         try:
             if s[2] and not s[3]:           libs.sniff.httpx_dirscan(format(s[1]), "libs/dict.txt", int(s[2]))
             if s[3] and s[2]:               libs.sniff.httpx_dirscan(format(s[1]), s[3], int(s[2]))

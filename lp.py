@@ -97,6 +97,6 @@ if  __name__ == '__main__':
         if order == "exit":         exit_()
         if "set" in order:          order_deal_Setting(order)
         else:                       order_deal_Common(order,demo_json["proxy"])              
-    
+
 
 #end

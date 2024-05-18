@@ -1,0 +1,5 @@
+paths:
+  fkeys: "libs/config/keys.yml"
+  fothers: "libs/config/others.yml"
+  exp_path: "libs/exp/"
+  poc_path: "libs/stars/"
