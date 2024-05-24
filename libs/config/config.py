@@ -14,7 +14,8 @@ class Config(object):
         self.news       =  self.get_config_file(open(self.fothers))["others"]["news"]  
         self.language   =  self.get_config_file(open(self.fothers))["others"]["language"]
         self.proxy      =  self.get_config_file(open(self.fothers))["others"]["proxy"]    
-        self.status     =  self.get_config_file(open(self.fothers))["others"]["status"]  
+        self.status     =  self.get_config_file(open(self.fothers))["others"]["status"]
+        self.threat_web =  self.get_config_file(open(self.fothers))["others"]["threat_web"]    
 
         self.exp_path   = self.get_config_file(open("libs/config/paths.yml"))["paths"]["exp_path"]
         self.poc_path   = self.get_config_file(open("libs/config/paths.yml"))["paths"]["poc_path"]

@@ -3,5 +3,6 @@ others:
   language: null
   news: 3
   proxy: null
+  threat_web: "https://exp-tools.github.io/threat-broadcast/"
   status: null
   status_minor: null
