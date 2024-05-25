@@ -1,3 +1,10 @@
+'''
+ *@author: wr
+ *@GitHub:https://github.com/wr0x00/Lsploit
+ *@date: 2023
+ *@description: 小处理工具
+'''
+
 import os
 from .config.config import Config
 

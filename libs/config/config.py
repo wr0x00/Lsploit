@@ -1,3 +1,10 @@
+'''
+ *@author: wr
+ *@GitHub:https://github.com/wr0x00/Lsploit
+ *@date: 2024.5
+ *@description: 提取配置文件信息
+'''
+
 import yaml
 
 class Config(object):
