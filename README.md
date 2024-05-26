@@ -1,5 +1,5 @@
 # Lsploit
-![](https://socialify.git.ci/wr0x00/Lsploit/image?description=1&font=Rokkitt&forks=1&issues=1&logo=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F86941613%3Fs%3D96%26v%3D4&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Light) 
+![](https://socialify.git.ci/wr0x00/Lsploit/image?description=1&descriptionEditable=A%20network%20penetration%20testing%20framework%20born%20for%20real-world%20situations.%E4%B8%BA%E5%AE%9E%E6%88%98%E8%80%8C%E7%94%9F%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E3%80%82&font=Rokkitt&forks=1&issues=1&logo=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F86941613%3Fs%3D96%26v%3D4&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Light) 
 ![](https://img.shields.io/badge/Size-4MB-informational?style=for-the-badge&logo=appveyor)
 ![](https://img.shields.io/badge/tested-termux-green?style=for-the-badge&logo=appveyor)
 
