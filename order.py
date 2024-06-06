@@ -35,8 +35,9 @@ def cve_info():
     from libs.config.config import Config
 
     x = PrettyTable(["最新漏洞", "时间", "详情"])#绘制表格
-    x.align["最新漏洞"] = "1" 
-    x.padding_width = 1  # 填充宽度
+    #x.align["最新漏洞"] = "1" 
+    #x._max_width = {"最新漏洞" : 25}
+    #x.padding_width = 1  # 填充宽度
     try:
         url=Config().threat_web
         header = {'User-Agent': 'Mozilla/5.0 (Mac NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.93 Safari/537.36'}
@@ -54,7 +55,7 @@ def cve_info():
         tds=i.find_all('td')
         cve_info=tds[3].text
         time=tds[2].text
-        for MORE_url in i.find_all('a'):x.add_row([cve_info,time,MORE_url.get('href')])
+        for MORE_url in i.find_all('a'):x.add_row(["\033[33m"+cve_info+"\033[1;37;40m","\033[32m"+time+"\033[1;37;40m","\033[94m"+MORE_url.get('href')+"\033[1;37;40m"])
 
     print(x)
     print(f"\t\t\t\t----数据来源:{url}")
@@ -99,8 +100,8 @@ def order_deal_Common(order:str,agent=None):
     elif s[0]=='show':  #列出
            try:
                 import libs.tools
-                if s[1]== "exp" or s[1]== "exps": libs.tools.search.expand_exp()
-                if s[1]== "poc" or s[1]== "pocs": libs.tools.search.expand_poc()
+                if s[1]== "exp" or s[1]== "exps": print(libs.tools.search.expand_exp()[-1])
+                if s[1]== "poc" or s[1]== "pocs": print(libs.tools.search.expand_poc()[-1])
            except IndexError:               print(Str.ERROR_ORDER)
 
     elif s[0]=='survey':    #（调查）查看选项的详细信息
@@ -114,7 +115,6 @@ def order_deal_Common(order:str,agent=None):
             import libs.tools
             from libs.config.config import Config
             libs.tools.search.detail(int(s[1]))
-            Config.change_config_file(Config().fothers,"others","status_minor",int(s[1]))
         except IndexError:                  print(Str.ERROR_ORDER)
 
     elif s[0]=='sw':          #扫描网址目录（线程默认60)
