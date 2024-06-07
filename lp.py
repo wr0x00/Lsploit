@@ -4,7 +4,7 @@
  *@date: 2022.9.9
  *@description: 命令行程序入口
 '''
-from order import *
+
 import json
 import libs.sniff
 
@@ -21,6 +21,7 @@ with open("libs/configs.json", "r",encoding='utf-8') as jsonFile:
 
 
 if demo_json["first"]==True:    #第一次使用该程序
+    os.system("pip install -r requirement.txt -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install requests -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install bs4 -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install prettytable -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install httpx[http2] -i https://pypi.tuna.tsinghua.edu.cn/simple")
     import requests,socket,os
 
     language=input("choose your local language/选择你的语言(EN|en|CN|cn):")
@@ -58,7 +59,6 @@ if demo_json["first"]==True:    #第一次使用该程序
     with open("libs/configs.json", "w") as jsonFile:
         json.dump(demo_json, jsonFile,ensure_ascii=False)
     
-    os.system("pip install -r requirement.txt -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install requests -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install bs4 -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install prettytable -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install httpx[http2] -i https://pypi.tuna.tsinghua.edu.cn/simple")
 
 banner="""
 \033[32m
@@ -72,6 +72,7 @@ banner="""
 """    #打印装逼标志
 
 if  __name__ == '__main__':
+    from order import *
     import json,requests   
 
     # 读入示例json数据
