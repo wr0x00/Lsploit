@@ -22,12 +22,13 @@ with open("libs/configs.json", "r",encoding='utf-8') as jsonFile:
 if demo_json["first"]==True:    #第一次使用该程序
     import os
     os.system("pip install -r requirement.txt -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install requests -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install bs4 -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install prettytable -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install httpx[http2] -i https://pypi.tuna.tsinghua.edu.cn/simple")
-    import requests,socket
+    import socket
 
     language=input("choose your local language/选择你的语言(EN|en|CN|cn):")
     demo_json["language"]=language
   
     if demo_json["language"]=='cn'or demo_json["language"]=='CN': #中文
+        import requests
         from libs.strings import String_CN as String        
         print('\033[33m')   #黄色标记开始
         print(String.WARNING+"\n")  #警告语
@@ -42,6 +43,7 @@ if demo_json["first"]==True:    #第一次使用该程序
         print(String.INSTALL)
 
     if demo_json["language"]=='en'or demo_json["language"]=='EN': #英文
+        import requests
         from libs.strings import String_EN as String   
         print('\033[33m')   #黄色标记开始
         print(String.WARNING+"\n")  #警告语
