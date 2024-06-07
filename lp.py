@@ -20,8 +20,9 @@ with open("libs/configs.json", "r",encoding='utf-8') as jsonFile:
 
 
 if demo_json["first"]==True:    #第一次使用该程序
+    import os
     os.system("pip install -r requirement.txt -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install requests -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install bs4 -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install prettytable -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install httpx[http2] -i https://pypi.tuna.tsinghua.edu.cn/simple")
-    import requests,socket,os
+    import requests,socket
 
     language=input("choose your local language/选择你的语言(EN|en|CN|cn):")
     demo_json["language"]=language
