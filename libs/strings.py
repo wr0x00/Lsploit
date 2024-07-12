@@ -15,16 +15,20 @@ class MessageSign:
 class String_CN:
     HELP="""
 （以空格区分参数）
-常用：  sw 网址或IP地址 线程数 字典路径         扫描网址目录（线程默认60,字典默认\modules\dict.t
+常用：  upgrade                                从GitHub更新本仓库
+        sw 网址或IP地址 线程数 字典路径         扫描网址目录（线程默认60,字典默认\modules\dict.t
         sp IP地址  最大端口                     扫描端口（最大端口默认65535）,支持D段‘/’批量扫描
         sd 网址 字典路径                        扫描子域名(字典默认modules\subdomain.txt)
         whois 网址                              whois查询
         shod 字符串                             shodan批量检索IP
-        fqfa 字符串 数量                        fqfa批量索引ip(数量默认100,在libs/config/keys.yml输入你的fqfa_key)
+        fqfa 字符串 数量                        fqfa批量索引ip(数量默认100)
         c 网址                                  cms检测
         poc 地址 端口                           poc检测（端口默认80）
 
-攻击：  ssh 地址 用户名 端口 字典路径           ssh爆破(用户默认root,端口默认22,字典路径默认modul
+攻击：  show exps/exp/pocs/poc                 列出本地可用poc/exp的一个列表
+        chose 数字                             选择/使用以上列表的选项对应的项目
+        survey 数字                            查看选项详细信息
+        ssh 地址 用户名 端口 字典路径           ssh爆破(用户默认root,端口默认22,字典路径默认modul
         webshell 网址 密码                      连接php一句话木马,虚拟终端
         dos IP地址 端口 线程                    dos攻击（线程默认40）
         exp cve编号 目标 端口                   exp利用(cve编号的cve后面第一个短横去掉,如cve-2018-9995写成cve2018-9995)
@@ -36,6 +40,7 @@ class String_CN:
 #NORMAL  
     WARNING="""该项目仅用于学习交流目地，使用者所触犯的一切法律责任与本项目作者无关\n
                          一切未经允许的测试行动皆属于违法行为，请保持清醒，自行斟酌\n"""
+    UPGRADE                 =MessageSign.PLS+"正在从github拉取最新版..."
     INSTALL                 =MessageSign.PLS+"正在安装依赖项..."
     LOCALNAME               ="本机名称:"
     LOCALHOST_LAN           ="本机局域网地址:"
@@ -85,7 +90,8 @@ class String_CN:
 class String_EN:
     HELP="""
 （以空格区分参数）
-常用：  sw 网址或IP地址 线程数 字典路径         扫描网址目录（线程默认60,字典默认\modules\dict.t
+常用：  upgrade                                从GitHub更新本仓库
+        sw 网址或IP地址 线程数 字典路径         扫描网址目录（线程默认60,字典默认\modules\dict.t
         sp IP地址  最大端口                     扫描端口（最大端口默认65535）,支持D段‘/’批量扫描
         sd 网址 字典路径                        扫描子域名(字典默认modules\subdomain.txt)
         whois 网址                              whois查询
@@ -94,7 +100,10 @@ class String_EN:
         c 网址                                  cms检测
         poc 地址 端口                           poc检测（端口默认80）
 
-攻击：  ssh 地址 用户名 端口 字典路径           ssh爆破(用户默认root,端口默认22,字典路径默认modul
+攻击：  show exps/exp/pocs/poc                 列出本地可用poc/exp的一个列表
+        chose 数字                             选择/使用以上列表的选项对应的项目
+        survey 数字                            查看选项详细信息
+        ssh 地址 用户名 端口 字典路径           ssh爆破(用户默认root,端口默认22,字典路径默认modul
         webshell 网址 密码                      连接php一句话木马,虚拟终端
         dos IP地址 端口 线程                    dos攻击（线程默认40）
         exp cve编号 目标 端口                   exp利用(cve编号的cve后面第一个短横去掉,如cve-2018-9995写成cve2018-9995)

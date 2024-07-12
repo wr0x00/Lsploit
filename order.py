@@ -97,6 +97,10 @@ def order_deal_Common(order:str,agent=None):
     
     if s[0]=='help':    print(Str.HELP)
 
+    elif s[0]=='upgrade':
+            import os
+            print(Str.UPGRADE)
+            os.system('git pull')
     elif s[0]=='show':  #列出
            try:
                 import libs.tools

@@ -40,7 +40,7 @@ if demo_json["first"]==True:    #第一次使用该程序
             #ip_position(re.findall("\d+",info))
         except requests.exceptions.ConnectionError:pass
         print('\033[1;37;40m')#黄色标记结束
-        print(String.INSTALL)
+        #print(String.INSTALL)
 
     if demo_json["language"]=='en'or demo_json["language"]=='EN': #英文
         import requests
@@ -55,7 +55,7 @@ if demo_json["first"]==True:    #第一次使用该程序
             #ip_position(re.findall("\d+",info))
         except requests.exceptions.ConnectionError:pass
         print('\033[1;37;40m')#黄色标记结束
-        print(String.INSTALL)
+        #print(String.INSTALL)
 
     demo_json["first"]=False
     with open("libs/configs.json", "w") as jsonFile:
