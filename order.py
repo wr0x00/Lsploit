@@ -80,6 +80,14 @@ def order_deal_Setting(order:str):
         demo_json["language"] =s[1]
         print(Str.SUCCESS_SET)
 
+    if s[0]=='setcozeid':       #设置扣子api
+        demo_json["coze_taken"] =s[1]
+        print(Str.SUCCESS_SET)
+    
+    if s[0]=='setbotid':       #设置扣子智能体id
+        demo_json["bot_id"] =s[1]
+        print(Str.SUCCESS_SET)
+
     with open("libs/configs.json", "w") as jsonFile:
         json.dump(demo_json, jsonFile,ensure_ascii=False)
     
@@ -97,6 +105,10 @@ def order_deal_Common(order:str,agent=None):
     
     if s[0]=='help':    print(Str.HELP)
 
+    elif s[0]=='ai':
+          import libs.ai
+          libs.ai.coze_ai_cli()
+        
     elif s[0]=='upgrade':
             import os
             print(Str.UPGRADE)

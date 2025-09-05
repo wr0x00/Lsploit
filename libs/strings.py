@@ -16,6 +16,7 @@ class String_CN:
     HELP="""
 （以空格区分参数）
 常用：  upgrade                                从GitHub更新本仓库
+        ai                                      开启ai对话框
         sw 网址或IP地址 线程数 字典路径         扫描网址目录（线程默认60,字典默认\modules\dict.t
         sp IP地址  最大端口                     扫描端口（最大端口默认65535）,支持D段‘/’批量扫描
         sd 网址 字典路径                        扫描子域名(字典默认modules\subdomain.txt)
@@ -69,6 +70,8 @@ class String_CN:
     BYTE                    ="字节"
     REMAINING_TIMES         =MessageSign.MIN+"今日剩余次数"
 #ERROR
+    ERROR_AI_USERAPI        =MessageSign.EXC+"未设置ai产品用户api"   
+    ERROR_AI_BOTID          =MessageSign.EXC+"未设置ai机器人id"
     ERROR_IP_FORMAT         =MessageSign.EXC+"IP地址格式不正确"
     ERROR_CONNECT           =MessageSign.EXC+"无法连接 :("
     ERROT_DICT              =MessageSign.EXC+"字典为空 :("
