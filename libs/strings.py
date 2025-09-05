@@ -37,6 +37,8 @@ class String_CN:
 设置：  setnews 数字                            设置播报漏洞数
         setproxy 网址                           设置代理
         setlang CN/cn/EN/en                     设置语言
+        setcozeid                               设置ai产品扣子api
+        setbotid                                设置扣子智能体id
         """
 #NORMAL  
     WARNING="""该项目仅用于学习交流目地，使用者所触犯的一切法律责任与本项目作者无关\n
