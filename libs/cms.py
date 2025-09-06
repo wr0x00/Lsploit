@@ -9,7 +9,7 @@
 import requests
 import zlib
 import json
-
+'''
 #设置语言
 if not __name__ == '__main__':
 	try:
@@ -27,7 +27,13 @@ if not __name__ == '__main__':
 	except Exception as e:
 		from .strings import String_EN as Str
 		print(e)
-
+'''
+from libs.config.config import Config
+if  not __name__ == '__main__':
+    if Config().language=='cn' or Config().language=='CN':
+        from libs.strings import String_CN as Str #中文
+    if Config().language=='en' or Config().language=='EN':
+        from libs.strings import String_EN as Str #英文
 
 proxy=None
 def set_agent(p):#设置代理

@@ -18,16 +18,20 @@ def exit_():
 with open("libs/configs.json", "r",encoding='utf-8') as jsonFile:
     demo_json = json.load(jsonFile)
 
+from libs.config.config import Config
 
-if demo_json["first"]==True:    #第一次使用该程序
+# if demo_json["first"] == True
+if Config().first == True:   #第一次使用该程序
     import os
     os.system("pip install -r requirement.txt -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install requests -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install bs4 -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install prettytable -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install httpx[http2] -i https://pypi.tuna.tsinghua.edu.cn/simple")
     import socket
 
     language=input("choose your local language/选择你的语言(EN|en|CN|cn):")
     demo_json["language"]=language
+    Config.change_config_file(Config().fothers,"others","language",language)
   
-    if demo_json["language"]=='cn'or demo_json["language"]=='CN': #中文
+    #f demo_json["language"]=='cn'or demo_json["language"]=='CN': #中文
+    if Config().language=='cn' or Config().language=='CN':
         import requests
         from libs.strings import String_CN as String        
         print('\033[33m')   #黄色标记开始
@@ -42,7 +46,8 @@ if demo_json["first"]==True:    #第一次使用该程序
         print('\033[1;37;40m')#黄色标记结束
         #print(String.INSTALL)
 
-    if demo_json["language"]=='en'or demo_json["language"]=='EN': #英文
+    #if demo_json["language"]=='en'or demo_json["language"]=='EN': #英文
+    if Config().language=='en' or Config().language=='EN':
         import requests
         from libs.strings import String_EN as String   
         print('\033[33m')   #黄色标记开始
@@ -58,6 +63,8 @@ if demo_json["first"]==True:    #第一次使用该程序
         #print(String.INSTALL)
 
     demo_json["first"]=False
+    Config.change_config_file(Config().fothers,"others","first",False)
+
     with open("libs/configs.json", "w") as jsonFile:
         json.dump(demo_json, jsonFile,ensure_ascii=False)
 
@@ -79,11 +86,15 @@ if  __name__ == '__main__':
     # 读入示例json数据
     j=open("libs/configs.json",encoding='utf-8')
     demo_json = json.loads(j.read())
-
+    '''
     if demo_json["language"]=='cn'or demo_json["language"]=='CN':from libs.strings import String_CN as Str #中文
-    if demo_json["language"]=='en'or demo_json["language"]=='EN':from libs.strings import String_EN as Str #英文  
+    if demo_json["language"]=='en'or demo_json["language"]=='EN':from libs.strings import String_EN as Str #英文 
+    '''
+    if Config().language=='cn' or Config().language=='CN':from libs.strings import String_CN as Str #中文
+    if Config().language=='en' or Config().language=='EN':from libs.strings import String_EN as Str #英文  
     
-    if demo_json["first"]==False:print(Str.WELCOME)
+    #if demo_json["first"]==False:       print(Str.WELCOME)
+    if Config().first == False:     print(Str.WELCOME)
     print(banner)
 
     try:cve_info()    

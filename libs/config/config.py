@@ -11,6 +11,8 @@ class Config(object):
     def __init__(self) -> None:
         super().__init__()
 
+        #self.paths     = "libs/config/paths.yml"
+
         self.fkeys     = self.get_config_file(open("libs/config/paths.yml"))["paths"]["fkeys"]
         self.fothers   = self.get_config_file(open("libs/config/paths.yml"))["paths"]["fothers"]
 

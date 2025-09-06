@@ -10,6 +10,7 @@ import random
 from .sniff import isIP
 
 #设置语言
+'''
 if not __name__ == '__main__':
 	#try:
 		import json
@@ -26,7 +27,15 @@ if not __name__ == '__main__':
 	#except Exception as e:
 		#print(e)
 		#exit()
+'''
+from libs.config.config import Config
+if  not __name__ == '__main__':
+    if Config().language=='cn' or Config().language=='CN':
+        from libs.strings import String_CN as Str #中文
+    if Config().language=='en' or Config().language=='EN':
+        from libs.strings import String_EN as Str #英文
 
+        
 Max=200000
 byte_size=65500
 byte=random._urandom(byte_size)

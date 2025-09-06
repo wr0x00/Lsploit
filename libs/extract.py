@@ -47,6 +47,7 @@ lsusb: 列出所有 USB 设备的信息，如鼠标、键盘和 USB 存储设备
 
 lsusb
 '''
+'''
 if not __name__ == '__main__':
 	try:
 		import json
@@ -63,7 +64,15 @@ if not __name__ == '__main__':
 	except Exception as e:
 		from .strings import String_EN as Str
 		print(e)
-		
+	'''
+from libs.config.config import Config
+if  not __name__ == '__main__':
+    if Config().language=='cn' or Config().language=='CN':
+        from libs.strings import String_CN as Str #中文
+    if Config().language=='en' or Config().language=='EN':
+        from libs.strings import String_EN as Str #英文
+
+        
 def extract_win():
 	import os
 	os.system("systeminfo")
