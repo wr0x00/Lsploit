@@ -75,31 +75,33 @@ def order_deal_Setting(order:str):
 
     with open("libs/configs.json", "r",encoding='utf-8') as jsonFile:
         demo_json = json.load(jsonFile)
-
-    if s[0]=='setnews':     #设置播报显示多少数
-        demo_json["news"]=s[1]
-        print(Str.SUCCESS_SET)
+    try:
+        if s[0]=='setnews':     #设置播报显示多少数
+            demo_json["news"]=s[1]
+            print(Str.SUCCESS_SET)
     
-    if s[0]=='setproxy':     #设置代理
-        demo_json["proxy"]=s[1]
-        print(Str.SUCCESS_SET)
+        if s[0]=='setproxy':     #设置代理
+            demo_json["proxy"]=s[1]
+            print(Str.SUCCESS_SET)
         
-    if s[0]=='setlang':       #设置语言
-        demo_json["language"] =s[1]
-        print(Str.SUCCESS_SET)
+        if s[0]=='setlang':       #设置语言
+            demo_json["language"] =s[1]
+            print(Str.SUCCESS_SET)
 
-    if s[0]=='setcozeid':       #设置扣子api
-        demo_json["coze_taken"] =s[1]
-        from libs.config.config import Config
-        Config.change_config_file(Config().fkeys,"keys","coze_taken",s[1])
-        print(Str.SUCCESS_SET)
+        if s[0]=='setcozeid':       #设置扣子api
+            demo_json["coze_taken"] =s[1]
+            from libs.config.config import Config
+            Config.change_config_file(Config().fkeys,"keys","coze_taken",s[1])
+            print(Str.SUCCESS_SET)
     
-    if s[0]=='setbotid':       #设置扣子智能体id
-        demo_json["bot_id"] =s[1]
-        from libs.config.config import Config
-        Config.change_config_file(Config().fkeys,"keys","bot_id",s[1])
-        print(Str.SUCCESS_SET)
-
+        if s[0]=='setbotid':       #设置扣子智能体id
+            demo_json["bot_id"] =s[1]
+            from libs.config.config import Config
+            Config.change_config_file(Config().fkeys,"keys","bot_id",s[1])
+            print(Str.SUCCESS_SET)
+    except Exception:
+        print(Str.ERROR_ORDER)
+        
     with open("libs/configs.json", "w") as jsonFile:
         json.dump(demo_json, jsonFile,ensure_ascii=False)
     
