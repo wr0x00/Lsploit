@@ -87,6 +87,7 @@ class String_CN:
     ERROR_CONNECT           =MessageSign.EXC+"无法连接 :("
     ERROT_DICT              =MessageSign.EXC+"字典为空 :("
     ERROR_ORDER             =MessageSign.EXC+"命令错误,输入'help'查看帮助"
+    ERROR_OS                =MessageSign.EXC+"未知操作系统"
 #SUCCESS
     SUCCESS_SCAN            =MessageSign.PLS+"扫描完成"
     SUCCESS_SSH             =MessageSign.PLS+"ssh爆破成功"

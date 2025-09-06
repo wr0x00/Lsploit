@@ -24,7 +24,11 @@ if not __name__ == '__main__':
 	except Exception as e:
 		from .strings import String_EN as Str
 		print(e)
-            
+
+#识别设备操作系统
+def which_os():
+    import sys
+    return sys.platform
 # 遍历文件夹
 def traversal_folder(folder_path):
     for root, dirs, files in os.walk(folder_path):

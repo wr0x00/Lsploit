@@ -64,6 +64,10 @@ if not __name__ == '__main__':
 		from .strings import String_EN as Str
 		print(e)
 		
+def extract_win():
+	import os
+	os.system("systeminfo")
+	
 def extract_linux(c:str):
     import os
     if c =='1':     os.system('lscpu')  #cpu

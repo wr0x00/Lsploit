@@ -113,6 +113,8 @@ def order_deal_Common(order:str,agent=None):
         import requests
         import socket
         import libs.extract
+        import libs.tools
+        print(f'{libs.tools.which_os()}')#系统种类
         print(f"{Str.LOCALNAME}{socket.gethostname()}")  #本机名
         print(f"{Str.LOCALHOST_LAN}{socket.gethostbyname(socket.gethostname())}")    #局域地址
         try:
@@ -120,11 +122,15 @@ def order_deal_Common(order:str,agent=None):
             print(Str.LOCALHOST_WAN+info)    #广域地址
             #ip_position(re.findall("\d+",info))
         except requests.exceptions.ConnectionError:pass
+              
+        if libs.tools.which_os() == 'win32' or libs.tools.which_os() == 'win64':
+            libs.extract.extract_win()
 
-        try:
-            libs.extract.extract_linux(s[1])
-        except IndexError:
-            print(libs.extract.show())
+        if libs.tools.which_os() == 'linux' or libs.tools.which_os() == 'darwin':
+            try:libs.extract.extract_linux(s[1])
+            except IndexError:print(libs.extract.show())
+        else:
+            print(Str.ERROR_OS)
 
         
     elif s[0]=='upgrade':
