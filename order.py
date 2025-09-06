@@ -108,6 +108,24 @@ def order_deal_Common(order:str,agent=None):
     elif s[0]=='ai':
           import libs.ai
           libs.ai.coze_ai_cli()
+    
+    elif s[0]=='i':
+        import requests
+        import socket
+        import libs.extract
+        print(f"{Str.LOCALNAME}{socket.gethostname()}")  #本机名
+        print(f"{Str.LOCALHOST_LAN}{socket.gethostbyname(socket.gethostname())}")    #局域地址
+        try:
+            info=requests.get('http://myip.ipip.net', timeout=5).text
+            print(Str.LOCALHOST_WAN+info)    #广域地址
+            #ip_position(re.findall("\d+",info))
+        except requests.exceptions.ConnectionError:pass
+
+        try:
+            libs.extract.extract_linux(s[1])
+        except IndexError:
+            print(libs.extract.show())
+
         
     elif s[0]=='upgrade':
             import os

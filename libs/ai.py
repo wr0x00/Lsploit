@@ -69,11 +69,13 @@ def coze_ai_cli():
     if coze_api_token == None:     print(Str.ERROR_AI_USERAPI)
 
     coze_api_base = COZE_CN_BASE_URL
-    coze = Coze(auth=TokenAuth(token=coze_api_token), base_url=coze_api_base)
-    conversation = coze.conversations.create()
+    try:
+        coze = Coze(auth=TokenAuth(token=coze_api_token), base_url=coze_api_base)
+        conversation = coze.conversations.create()
 
-    while True:
-        t=input("->")
-        t,chat_id=coze_chat_stream_API(coze,conversation,bot_id,t)
-        #t=s[1]'''
-        print(f'{t}')
+        while True:
+            t=input("->")
+            t,chat_id=coze_chat_stream_API(coze,conversation,bot_id,t)
+            #t=s[1]'''
+            print(f'{t}')
+    except AssertionError:pass

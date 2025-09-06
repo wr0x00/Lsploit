@@ -54,9 +54,10 @@ class search(object):
             i=1
             for file_name in files:
 
-                x.add_row(["\033[33m"+format(i)+"\033[1;37;40m",
+                x.add_row(["\033[33m"+format(i)+"\033[1;37;40m",            #
                            "\033[32m"+file_name.strip('/')+"\033[1;37;40m",
-                           ""])
+                           ""
+                           ])
 
                 outcome.append([i,file_name.strip('/')])
                 i+=1
