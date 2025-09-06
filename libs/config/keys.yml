@@ -1,3 +1,5 @@
 keys:
-  fqfa_key: ""
-  shodan_key: ""
+  bot_id: ''
+  coze_taken: ''
+  fqfa_key: ''
+  shodan_key: ''

@@ -60,7 +60,6 @@ if demo_json["first"]==True:    #第一次使用该程序
     demo_json["first"]=False
     with open("libs/configs.json", "w") as jsonFile:
         json.dump(demo_json, jsonFile,ensure_ascii=False)
-    
 
 banner="""
 \033[32m
@@ -84,6 +83,7 @@ if  __name__ == '__main__':
     if demo_json["language"]=='cn'or demo_json["language"]=='CN':from libs.strings import String_CN as Str #中文
     if demo_json["language"]=='en'or demo_json["language"]=='EN':from libs.strings import String_EN as Str #英文  
     
+    if demo_json["first"]==False:print(Str.WELCOME)
     print(banner)
 
     try:cve_info()    

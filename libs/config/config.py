@@ -11,11 +11,14 @@ class Config(object):
     def __init__(self) -> None:
         super().__init__()
 
-        self.fkeys   = self.get_config_file(open("libs/config/paths.yml"))["paths"]["fkeys"]
+        self.fkeys     = self.get_config_file(open("libs/config/paths.yml"))["paths"]["fkeys"]
         self.fothers   = self.get_config_file(open("libs/config/paths.yml"))["paths"]["fothers"]
 
         self.fqfa_key   = self.get_config_file(open(self.fkeys))["keys"]["fqfa_key"]
         self.shodan_key = self.get_config_file(open(self.fkeys))["keys"]["shodan_key"]
+        self.coze_taken = self.get_config_file(open(self.fkeys))["keys"]["coze_taken"]
+        self.bot_id     = self.get_config_file(open(self.fkeys))["keys"]["bot_id"]
+
         
         self.first      =  self.get_config_file(open(self.fothers))["others"]["first"]
         self.news       =  self.get_config_file(open(self.fothers))["others"]["news"]  

@@ -57,7 +57,6 @@ def coze_chat_stream_API(coze,conversation,bot_id,text_input:str)->str:
             break
     return ends,event.chat.id #str,返回chat_id以便对话记录
 def coze_ai_cli():
-
     import json
     j= open('libs/configs.json', encoding='utf-8')
     dem_json = json.loads(j.read())
@@ -72,10 +71,13 @@ def coze_ai_cli():
     try:
         coze = Coze(auth=TokenAuth(token=coze_api_token), base_url=coze_api_base)
         conversation = coze.conversations.create()
-
+        print(Str.SUCCESS_CONNECT)
         while True:
             t=input("->")
             t,chat_id=coze_chat_stream_API(coze,conversation,bot_id,t)
             #t=s[1]'''
             print(f'{t}')
-    except AssertionError:pass
+    except KeyboardInterrupt:
+        print("")
+        return
+    except Exception:pass

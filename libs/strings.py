@@ -93,6 +93,7 @@ class String_CN:
     SUCCESS_SSH             =MessageSign.PLS+"ssh爆破成功"
     SUCCESS_SET             =MessageSign.PLS+"设置成功,重启生效"
     SUCCESS_WRITTEN         =MessageSign.PLS+"已生成报告："
+    SUCCESS_CONNECT         =MessageSign.PLS+"连接成功"
 #HTML
     TITTEL                  ="LSPLOIT"
     WELCOME                 ="欢迎回到Lsploit!"
