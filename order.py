@@ -55,9 +55,11 @@ def cve_info():
     soup=b(r.text,'html.parser')
     items=soup.find_all('tr')
 
-    j=open("libs/configs.json",encoding='utf-8')
-    demo_json = json.loads(j.read())
-    max=int(demo_json["news"])+1
+    #j=open("libs/configs.json",encoding='utf-8')
+    #demo_json = json.loads(j.read())
+    from libs.config.config import Config
+
+    max=int(Config().news)+1
 
     for i in items[1:max]:
         tds=i.find_all('td')
@@ -71,31 +73,38 @@ def cve_info():
 
 def order_deal_Setting(order:str):
     import json
+
     s=order.split()
 
     with open("libs/configs.json", "r",encoding='utf-8') as jsonFile:
         demo_json = json.load(jsonFile)
     try:
         if s[0]=='setnews':     #设置播报显示多少数
-            demo_json["news"]=s[1]
+            #demo_json["news"]=s[1]
+            from libs.config.config import Config
+            Config.change_config_file(Config().fothers,"others","news",s[1])
             print(Str.SUCCESS_SET)
     
         if s[0]=='setproxy':     #设置代理
-            demo_json["proxy"]=s[1]
+            #demo_json["proxy"]=s[1]
+            from libs.config.config import Config
+            Config.change_config_file(Config().fothers,"others","proxy",s[1])
             print(Str.SUCCESS_SET)
         
         if s[0]=='setlang':       #设置语言
-            demo_json["language"] =s[1]
+            #demo_json["language"] =s[1]
+            from libs.config.config import Config
+            Config.change_config_file(Config().fothers,"others","language",s[1])
             print(Str.SUCCESS_SET)
 
         if s[0]=='setcozeid':       #设置扣子api
-            demo_json["coze_taken"] =s[1]
+            #demo_json["coze_taken"] =s[1]
             from libs.config.config import Config
             Config.change_config_file(Config().fkeys,"keys","coze_taken",s[1])
             print(Str.SUCCESS_SET)
     
         if s[0]=='setbotid':       #设置扣子智能体id
-            demo_json["bot_id"] =s[1]
+            #demo_json["bot_id"] =s[1]
             from libs.config.config import Config
             Config.change_config_file(Config().fkeys,"keys","bot_id",s[1])
             print(Str.SUCCESS_SET)
@@ -146,7 +155,10 @@ def order_deal_Common(order:str,agent=None):
         else:
             print(Str.ERROR_OS)
 
-        
+    elif s[0]=='news':
+        try:cve_info()    
+        except requests.exceptions.SSLError: print("无漏洞播报，漏洞站貌似是崩了。。。")
+        except requests.exceptions.ConnectionError:pass
     elif s[0]=='upgrade':
             import os
             print(Str.UPGRADE)
