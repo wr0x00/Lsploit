@@ -14,41 +14,53 @@ let b="";
 <h1 align="center" style="color:greenyellow">{{tittle}}</h1>
 <p>
 {{url}}
-<form action="/sw/do" method="post">
+<form action="/sw/do" method="get">
 <input type="text" name="f_url" size="15">
-<input type="submit" value={{do}}>
+<input type="submit" value="START">
 </form>
 
-<script>
-	function selectText(str) { //连续录入字符       //sbJS，真尼玛难弄
-      string_ALL=b;
-      b=str;
-      b=string_ALL+b;
-      document.getElementById("h01").innerHTML=b;
-    }
 
-    //$("#submit").click(function () {//传后端
-    $("#c1").click(function(){
-    $.ajax({
-        url: '/sw_ajax/',
-        type: 'post',
-        data: {
-            n1: $("#f_url").val(),
-        },
-        success: function (data) {
-            //$("#h01").val(data)
-            selectText(data)
-        },
-    })
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"><script>
+<script>
+    function selectText(str) { //连续录入字符       //sbJS，真尼玛难弄
+      string_ALL=b;
+      b=str;
+      b=string_ALL+b;
+      document.getElementById("h01").innerHTML=b;
+    }
+
+    //$("#submit").click(function () {//传后端
+    $("#c1").click(function(){
+    $.ajax({
+        url: '/sw/do',
+        type: 'get',
+        dataType:'json',
+        data: {
+            f_url: $("#f_url").val(),
+        },
+        success: function (data) {
+            //$("#h01").val(data)
+            //selectText(data)
+            //$("#result").html("<p>"+data.results+"</p>")
+            $("#result").html("<p>正在运行</p>")
+        },
+    })
 })
-	function inpution(str){
-		document.getElementById("h01").innerHTML=str.value;
-	}
-	function clear(){
-		document.body.innerHTML=null;
-	}
+    function inpution(str){
+        document.getElementById("h01").innerHTML=str.value;
+    }
+    function clear(){
+        document.body.innerHTML=null;
+    }
 </script>
-	<hr />
+    <hr />
+
+
+<div id="result"> </div>
+{% if results %}
+<p>{{results}}</p>
+{% endif %}
 
 <!--结尾-->
 <hr />
