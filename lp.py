@@ -79,10 +79,14 @@ banner="""
 \033[1;37;40m                                                                                                                            
 """    #打印装逼标志
 
-if  __name__ == '__main__':
-    from order import *
-    import json,requests   
 
+from order import *
+import json,requests
+from io import StringIO
+from contextlib import redirect_stdout
+import sys
+
+def IO(noninteractive=False):
     # 读入示例json数据
     j=open("libs/configs.json",encoding='utf-8')
     demo_json = json.loads(j.read())
@@ -103,14 +107,121 @@ if  __name__ == '__main__':
 
     info=requests.get('http://myip.ipip.net',timeout=5).text
     print('\033[91m'+info+'\033[1;37;40m')    #广域地址
+
+    # 如果以非交互方式运行（用于捕获输出），直接返回，避免进入交互循环阻塞
+    if noninteractive:
+        return
     
     while True:
         try:                        order=input("Lsploit>")
-        except KeyboardInterrupt:   exit_()
+        except KeyboardInterrupt:
+            exit_()
+            return 1
         except IndexError:          continue
-        if order == "exit":         exit_()
+        if order == "exit":         
+            exit_()
+            return 1
         if "set" in order:          order_deal_Setting(order)
-        else:                       order_deal_Common(order,demo_json["proxy"])              
+        else:                       order_deal_Common(order,demo_json["proxy"])   
 
+'''
+def capture_stdout(func, *args, tee=False, **kwargs):
+    buf = StringIO()
+    if tee:
+        class Tee:
+            def __init__(self, *streams): self.streams = streams
+            def write(self, s):
+                for st in self.streams: st.write(s)
+            def flush(self):
+                for st in self.streams:
+                    try: st.flush()
+                    except: pass
+        out_stream = Tee(sys.stdout, buf)
+    else:
+        out_stream = buf
 
+    with redirect_stdout(out_stream):
+        result = func(*args, **kwargs)
+    return result, buf.getvalue()
+'''
+
+def capture_interactive(func, *args, tee=True, **kwargs):
+    """在后台线程运行交互式函数，同时捕获 stdout（可 tee 到终端）并记录 input() 的输入。
+
+    返回一个字典，包含：
+      - thread: 正在运行的线程对象
+      - buffer: StringIO 对象，可随时用 .getvalue() 读取当前捕获的输出
+      - inputs: 列表，记录了 (prompt, value) 的历史输入
+      - stop(): 一个函数，恢复被替换的 input 并等待线程结束
+
+    注意：该函数不会主动结束被运行的交互函数（除非函数本身退出，例如用户输入 exit），stop() 会等待线程结束。
+    """
+    import threading, builtins
+
+    buf = StringIO()
+    inputs = []
+
+    # 记录并转发真实输入
+    original_input = builtins.input
+
+    def logged_input(prompt=''):
+        val = original_input(prompt)
+        try:
+            inputs.append((prompt, val))
+        except Exception:
+            pass
+        return val
+
+    builtins.input = logged_input
+
+    if tee:
+        class Tee:
+            def __init__(self, *streams): self.streams = streams
+            def write(self, s):
+                for st in self.streams: st.write(s)
+            def flush(self):
+                for st in self.streams:
+                    try: st.flush()
+                    except: pass
+        out_stream = Tee(sys.stdout, buf)
+    else:
+        out_stream = buf
+
+    def target():
+        # 在线程内重定向 stdout 到 out_stream
+        with redirect_stdout(out_stream):
+            try:
+                func(*args, **kwargs)
+            finally:
+                # 当交互函数结束后，恢复 input
+                try: builtins.input = original_input
+                except: pass
+
+    thread = threading.Thread(target=target, daemon=True)
+    thread.start()
+
+    def stop():
+        # 恢复 input 并等待线程结束
+        try: builtins.input = original_input
+        except: pass
+        thread.join()
+
+    return {
+        'thread': thread,
+        'buffer': buf,
+        'inputs': inputs,
+        'stop': stop,
+    }
+'''
+try:
+    s = capture_interactive(IO, tee=True)
+    s['stop']()
+except KeyboardInterrupt:
+    
+    print("记录:", repr(s['buffer'].getvalue()))
+finally:
+    print("记录:", repr(s['buffer'].getvalue()))
+    '''
+if __name__ == "__main__":
+    IO()
 #end
