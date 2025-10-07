@@ -3,6 +3,9 @@ from django.shortcuts import render
 from libs.strings import String_CN as Str
 from django.views.decorators.csrf import csrf_exempt
 
+from order import *
+import sys
+
 def hello(request):
     return HttpResponse("Hello world !")
     
@@ -29,12 +32,19 @@ def sw(request):        #扫描目录页
 def sw_do(requests):
     import time
     from libs.web_sniff import httpx_dirscan
+    import lp
+    
+
     context={}
     if requests.method == 'GET':
         #处理提交数据
         f_url = requests.GET.get('f_url',None)
         #context['results'] = httpx_dirscan(f_url)
         #context['goback'] = Str.GO_BACK
-        data={'results':f_url,}
+        s = lp.capture_interactive(orderweb=f_url,tee=True)
+        s['stop']()
+        if "set" in f_url:           order_deal_Setting(f_url)
+        else:                           order_deal_Common(f_url)   
+        data={'results':repr(s['buffer'].getvalue()),}
     #return render(requests, 'results.html', context)
     return render(requests, 'sw.html', data)

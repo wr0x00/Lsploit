@@ -86,7 +86,7 @@ from io import StringIO
 from contextlib import redirect_stdout
 import sys
 
-def IO(noninteractive=False):
+def IO(ifweb=False,orderweb=None):
     # 读入示例json数据
     j=open("libs/configs.json",encoding='utf-8')
     demo_json = json.loads(j.read())
@@ -109,20 +109,24 @@ def IO(noninteractive=False):
     print('\033[91m'+info+'\033[1;37;40m')    #广域地址
 
     # 如果以非交互方式运行（用于捕获输出），直接返回，避免进入交互循环阻塞
-    if noninteractive:
+    if ifweb:
+        print("Lsploit>")
         return
-    
-    while True:
-        try:                        order=input("Lsploit>")
-        except KeyboardInterrupt:
-            exit_()
-            return 1
-        except IndexError:          continue
-        if order == "exit":         
-            exit_()
-            return 1
-        if "set" in order:          order_deal_Setting(order)
-        else:                       order_deal_Common(order,demo_json["proxy"])   
+    if orderweb:
+        if "set" in orderweb:           order_deal_Setting(order)
+        else:                           order_deal_Common(order,demo_json["proxy"])   
+    else:
+        while True:
+            try:                        order=input("Lsploit>")
+            except KeyboardInterrupt:
+                exit_()
+                return 1
+            except IndexError:          continue
+            if order == "exit":         
+               exit_()
+               return 1
+            if "set" in order:          order_deal_Setting(order)
+            else:                       order_deal_Common(order,demo_json["proxy"])   
 
 '''
 def capture_stdout(func, *args, tee=False, **kwargs):
@@ -145,7 +149,7 @@ def capture_stdout(func, *args, tee=False, **kwargs):
     return result, buf.getvalue()
 '''
 
-def capture_interactive(func, *args, tee=True, **kwargs):
+def capture_interactive(*args, tee=True, orderweb=None,**kwargs):
     """在后台线程运行交互式函数，同时捕获 stdout（可 tee 到终端）并记录 input() 的输入。
 
     返回一个字典，包含：
@@ -191,7 +195,7 @@ def capture_interactive(func, *args, tee=True, **kwargs):
         # 在线程内重定向 stdout 到 out_stream
         with redirect_stdout(out_stream):
             try:
-                func(*args, **kwargs)
+                IO(True,orderweb)
             finally:
                 # 当交互函数结束后，恢复 input
                 try: builtins.input = original_input
