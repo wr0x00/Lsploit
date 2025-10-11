@@ -127,7 +127,7 @@ ai
 
 ```
 智能体的botid和api_key在
-Lsploit\libs\configs.json下配置
+libs\configs.json下配置
 ## API
 
 详细信息见[wiki](https://github.com/wr0x00/Lsploit/wiki)
