@@ -44,27 +44,45 @@ bash lp.sh
 当前 IP：**.**.**.**  来自于：***
 
 Lsploit>help
+help                                                                                                            
+                                                                                                                
+（以空格区分参数）
+常用：  upgrade                                从GitHub更新本仓库
+        mine                                    查看本机公网地址
+        ai                                      开启ai对话框
+        news                                    打印漏洞播报
+        i (数字)                                查看本设备详细信息（IP，名称，配置等）
+            1：cpu
+            2：内存
+            3：硬件
+            4：磁盘
+            5：网络接口
+            6：硬件详细信息
+            7：PCI 设备信息
+            8：USB 设备信息
+        sw 网址或IP地址 线程数 字典路径         扫描网址目录（线程默认60,字典默认\modules\dict.t
+        sp IP地址  最大端口                     扫描端口（最大端口默认65535）,支持D段‘/’批量扫描
+        sd 网址 字典路径                        扫描子域名(字典默认modules\subdomain.txt)
+        whois 网址                              whois查询
+        shod 字符串                             shodan批量检索IP
+        fqfa 字符串 数量                        fqfa批量索引ip(数量默认100)
+        c 网址                                  cms检测
+        poc 地址 端口                           poc检测（端口默认80）
+                                                                                                                
+攻击：  show exps/exp/pocs/poc                 列出本地可用poc/exp的一个列表
+        chose 数字                             选择/使用以上列表的选项对应的项目
+        survey 数字                            查看选项详细信息
+        ssh 地址 用户名 端口 字典路径           ssh爆破(用户默认root,端口默认22,字典路径默认modul
+        webshell 网址 密码                      连接php一句话木马,虚拟终端
+        dos IP地址 端口 线程                    dos攻击（线程默认40）
+        exp cve编号 目标 端口                   exp利用(cve编号的cve后面第一个短横去掉,如cve-2018-9995写成cve2018-9995)
+                                                                                                                
+设置：  setnews 数字                            设置播报漏洞数
+        setproxy 网址                           设置代理
+        setlang CN/cn/EN/en                     设置语言
+        setcozeid                               设置ai产品扣子api
+        setbotid                                设置扣子智能体id
 
-常用：
-        sw 网址或IP地址 线程数 字典路径      扫描网址目录（线程默认60,字典默认\modules\dict.t
-        sp IP地址  最大端口               扫描端口（最大端口默认65535）,支持D段‘/’批量扫描
-        sd 网址 字典路径             扫描子域名(字典默认modules\subdomain.txt)
-        whois 网址                  whois查询
-        shod 字符串                 shodan批量检索IP
-        fqfa 字符串 数量            fqfa批量索引ip(数量默认100,在libs/config/keys.yml输入你的fqfa_key)
-        c 网址                      cms检测
-        poc 地址 端口                poc检测（端口默认80）
-
-        ssh 地址 用户名 端口 字典路径       ssh爆破(用户默认root,端口默认22,字典路径默认modul
-        webshell 网址 密码               连接php一句话木马,虚拟终端
-        dos IP地址 端口 线程            dos攻击（线程默认40）
-        exp cve编号 目标 端口         exp利用(cve编号的cve后面第一个短横去掉,如cve-2018-9995写成cve2018-9995)
-
-设置：
-        setnews 数字                设置播报漏洞数
-        setproxy 网址               设置代理
-        setlang CN/cn/EN/en         设置语言
-        
 Lsploit>
 ```
 注意命令中间是用空格区分。
@@ -98,9 +116,25 @@ Lsploit>sp 127.0.0.1
 扫描完成,总耗时:0:00:03.469478
 ``` 
 比nmap快50倍。
+#### 3.嵌入扣子智能体
+```
+Lsploit>ai
+ai                                                                                                                                                                 
+[+]连接成功
+->你好
+你好！😊 请问有什么可以帮您的吗？
+->
+
+```
+智能体的botid和api_key在
+Lsploit\libs\configs.json下配置
 ## API
 
 详细信息见[wiki](https://github.com/wr0x00/Lsploit/wiki)
+
+### NEXT STEP
+ * web版
+ * 自动化ai执行
 
 ### 声明
 **用户使用本项目所触犯的一切法律责任与本项目作者无关，使用即接受此声明**
