@@ -16,6 +16,7 @@ class String_CN:
     HELP="""
 （以空格区分参数）
 常用：  upgrade                                从GitHub更新本仓库
+        mine                                    查看本机公网地址
         ai                                      开启ai对话框
         news                                    打印漏洞播报
         i (数字)                                查看本设备详细信息（IP，名称，配置等）

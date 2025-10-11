@@ -102,8 +102,12 @@ def IO(ifweb=False,orderweb=None):
     print(banner)
 
     try:cve_info()    
-    except requests.exceptions.SSLError: print("无漏洞播报，漏洞站貌似是崩了。。。")
-    except requests.exceptions.ConnectionError:pass
+    #except requests.exceptions.SSLError: print("无漏洞播报，漏洞站貌似是崩了。。。")
+    #except requests.exceptions.ConnectionError:print("无漏洞播报，漏洞站貌似是崩了...")
+    #except requests.exceptions.Timeout:print("无漏洞播报，网络连接超时。。。")
+    except Exception as e:
+        from libs.strings import MessageSign as Msg
+        print(Msg.EXC+"无漏洞播报，漏洞站貌似是崩了。。。["+str(e)+"]")
 
     info=requests.get('http://myip.ipip.net',timeout=5).text
     print('\033[91m'+info+'\033[1;37;40m')    #广域地址

@@ -128,7 +128,11 @@ def order_deal_Common(order:str,agent=None):
     
     if s[0]=='help':    print(Str.HELP)
 
-    elif s[0]=='ai':
+    elif s[0]=='mine': #查看本机公网地址
+        import requests
+        print('\033[91m'+requests.get('http://myip.ipip.net',timeout=5).text+'\033[1;37;40m')
+              
+    elif s[0]=='ai':  #广域地址
         import libs.ai
         libs.ai.coze_ai_cli()
     
