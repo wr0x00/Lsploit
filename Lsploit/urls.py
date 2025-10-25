@@ -22,6 +22,7 @@ from .import view
 urlpatterns = [
     path("",view.index),
     path("sw/",view.sw),
-    path("sw/do",view.sw_do),
+    path("console_do/",view.console_command,name='execute_command'),
+    path("console/",view.console),
     #path("admin/", admin.site.urls),
 ]

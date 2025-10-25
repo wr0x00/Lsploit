@@ -109,8 +109,12 @@ def IO(ifweb=False,orderweb=None):
         from libs.strings import MessageSign as Msg
         print(Msg.EXC+"无漏洞播报，漏洞站貌似是崩了。。。["+str(e)+"]")
 
-    info=requests.get('http://myip.ipip.net',timeout=5).text
-    print('\033[91m'+info+'\033[1;37;40m')    #广域地址
+    try:
+        info=requests.get('http://myip.ipip.net',timeout=5).text
+        print('\033[91m'+info+'\033[1;37;40m')    #广域地址
+    except Exception as e:
+        from libs.strings import MessageSign as Msg
+        print(Msg.EXC+Str.ERROR_CONNECT)
 
     # 如果以非交互方式运行（用于捕获输出），直接返回，避免进入交互循环阻塞
     if ifweb:

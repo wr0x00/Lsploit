@@ -3,7 +3,7 @@
 ![](https://img.shields.io/badge/Size-4MB-informational?style=for-the-badge&logo=appveyor)
 ![](https://img.shields.io/badge/tested-termux-green?style=for-the-badge&logo=appveyor)
 
-lsploit为实战而设计的渗透测试框架,配合httpx、asyncio拥有高性能,功能丰富,结合最新漏洞通告,可自行组装exp,poc
+lsploit是一款便携式综合资产分析及漏扫框架，httpx、asyncio拥有高性能,功能丰富,结合最新漏洞通告,嵌入ai,可自行组装exp,poc
 
 ### 安装
 ```shell
@@ -16,7 +16,7 @@ pip install -r requirement.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 pip install requests && pip install bs4 -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install prettytable -i https://pypi.tuna.tsinghua.edu.cn/simple && pip install httpx[http2] -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 ```
-### 使用
+### 使用&主要功能
 ```shell
 python lp.py
 或
