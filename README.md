@@ -1,5 +1,5 @@
 # Lsploit
-![]([https://socialify.git.ci/wr0x00/Lsploit/image?description=1&font=Bitter&forks=1&issues=1&language=1&name=1&owner=1&pattern=Circuit+Board&pulls=1&stargazers=1&theme=Light](https://socialify.git.ci/wr0x00/Lsploit/image?description=1&font=Bitter&forks=1&issues=1&logo=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F86941613%3Fs%3D400%26u%3Dbff60710ac04e4d2b9e3891150641e3df2075cf8%26v%3D4&name=1&pattern=Circuit+Board&pulls=1&stargazers=1&theme=Light)) 
+![](https://socialify.git.ci/wr0x00/Lsploit/image?description=1&font=Bitter&forks=1&issues=1&logo=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F86941613%3Fs%3D400%26u%3Dbff60710ac04e4d2b9e3891150641e3df2075cf8%26v%3D4&name=1&pattern=Circuit+Board&pulls=1&stargazers=1&theme=Light) 
 ![](https://img.shields.io/badge/Size-4MB-informational?style=for-the-badge&logo=appveyor)
 ![](https://img.shields.io/badge/tested-termux-green?style=for-the-badge&logo=appveyor)
 
