@@ -261,10 +261,16 @@
                 <div class="terminal-title">网页版CMD终端 - 命令输入模式</div>
                 <div></div>
             </div>
-            
             <div class="terminal-body" ref="terminalBody" @scroll="checkAutoScroll">
                 <div class="log-content" ref="logContent">
                     <div v-for="(log, index) in logs" :key="index" class="log-line">
+                        <style>
+                        span {
+                        display: inline-block;
+                        width: 100px; /* 可根据需要调整宽度 */
+                        word-break: break-word;
+                        }
+                        </style>
                         <span class="timestamp">[{{ log.timestamp }}]</span>
                         <span :class="log.type" v-html="log.content"></span>
                     </div>
@@ -273,7 +279,7 @@
             </div>
             
             <div class="command-input-area">
-                <span class="prompt">$</span>
+                <span class="prompt">Lsploit》</span>
                 <input 
                     type="text" 
                     class="command-input" 
@@ -498,7 +504,7 @@
                         }, 2000);
                     }
                 };
-                
+
                 // 执行命令
                 const executeCommand = async () => {
                     const command = currentCommand.value.trim();
@@ -621,10 +627,53 @@
                 };
                 
                 onMounted(() => {
-                    addLog('网页版CMD终端已启动 - 输入命令并按回车执行', 'system-info');
-                    addLog('示例命令: help, dir, ls, ping, status', 'system-info');
+                    addLog('网页版Lsploit终端已启动 - 输入命令并按回车执行', 'system-info');
+                    /*
+                    try {
+                        // 发送命令到后端API
+                        const response = await axios.post('/console_start/', {
+                        }, {
+                            timeout: 30000 // 30秒超时
+                        });
+                        
+                        // 显示命令输出
+                        if (response.data) {
+                            addLog(response.data, 'command-output');
+                        } else {
+                            addLog('命令执行完成，但无输出', 'command-output');
+                        }
+                    } catch (error) {
+                        let errorMessage = '命令执行失败: ';
+                        
+                        if (error.response) {
+                            // 服务器返回了错误状态码
+                            errorMessage += `服务器错误 (${error.response.status})`;
+                            if (error.response.data && error.response.data.error) {
+                                errorMessage += `: ${error.response.data.error}`;
+                            }
+                        } else if (error.request) {
+                            // 请求已发出但没有收到响应
+                            errorMessage += '无法连接到服务器';
+                        } else {
+                            // 其他错误
+                            errorMessage += error.message;
+                        }
+                        
+                        addLog(errorMessage, 'command-error');
+                    } finally {
+                        //isCommandExecuting.value = false;
+                        // 重新聚焦到输入框
+                        nextTick(() => {
+                            if (commandInput.value) {
+                                commandInput.value.focus();
+                            }
+                        });
+                    }*/
+                    addLog(start_info)
+
+                    //addLog('示例命令: help, dir, ls, ping, status', 'system-info');
                     
-                    // 测试ANSI颜色码显示
+                    /* 测试ANSI颜色码显示
                     addLog('ANSI颜色测试:', 'system-info');
                     addLog('\x1b[31m红色文本\x1b[0m', 'command-output');
                     addLog('\x1b[32m绿色文本\x1b[0m', 'command-output');
@@ -635,6 +684,7 @@
                     addLog('\x1b[1;31m粗体红色文本\x1b[0m', 'command-output');
                     addLog('\x1b[4;32m下划线绿色文本\x1b[0m', 'command-output');
                     addLog('\x1b[41;37m白字红底文本\x1b[0m', 'command-output');
+                    */
                     
                     // 自动聚焦到输入框
                     if (commandInput.value) {

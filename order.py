@@ -70,6 +70,7 @@ def cve_info():
     print(x)
     print(f"\t\t\t\t----数据来源:{url}")
     print("(使用setnows设置播报漏洞条数,例如“setnows 2”)\t\t\tCURL+c 退出")
+    return x+f"\n\t\t\t\t----数据来源:{url}\n"+"(使用setnows设置播报漏洞条数,例如“setnows 2”)\t\t\tCURL+c 退出"
 
 def order_deal_Setting(order:str):
     import json

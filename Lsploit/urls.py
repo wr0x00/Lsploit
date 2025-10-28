@@ -23,6 +23,7 @@ urlpatterns = [
     path("",view.index),
     path("sw/",view.sw),
     path("console_do/",view.console_command,name='execute_command'),
+    #path("console_start/",view.start_command,name='start_command'),
     path("console/",view.console),
     #path("admin/", admin.site.urls),
 ]

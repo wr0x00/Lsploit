@@ -57,9 +57,54 @@ import json
 
 @csrf_exempt 
 def console(request):
-    return render(request, 'console.html')
+    try:
+        import lp
+        result_string = lp.banner
+        import requests
+        result_string += cve_info()    
+    #except requests.exceptions.SSLError: print("无漏洞播报，漏洞站貌似是崩了。。。")
+    #except requests.exceptions.ConnectionError:print("无漏洞播报，漏洞站貌似是崩了...")
+    #except requests.exceptions.Timeout:print("无漏洞播报，网络连接超时。。。")
+    except Exception as e:
+        from libs.strings import MessageSign as Msg
+        result_string =Msg.EXC+"无漏洞播报，漏洞站貌似是崩了。。。["+str(e)+"]"
 
+    try:
+        info=requests.get('http://myip.ipip.net',timeout=5).text
+        result_string+=info   #广域地址
+    except Exception as e:
+        from libs.strings import MessageSign as Msg
+        result_string+=Str.ERROR_CONNECT
+    print(result_string)
+    return render(request, 'console.html',{"start_info": result_string })
+'''
+@csrf_exempt 
+def start_command(request):
+    """
+    处理发送到 /sw/do 的POST请求，执行命令并返回结果。
+    """
+    
+    
+
+        # 例如，将命令发送给后端处理器并等待结果
+            # 你需要实现这个函数
+        #result_string=command_str
+        # 3. 将结果返回给前端
+        # 返回纯文本字符串
+        return HttpResponse(result_string, content_type='text/plain; charset=utf-8')
+        # 或者返回JSON格式
+        # return JsonResponse({'output': result_string})
+
+    except json.JSONDecodeError:
+        return JsonResponse({'error': '无效的JSON数据'}, status=400)
+    except Exception as e:
+        # 记录异常日志
+        # logger.error(f"处理命令时发生错误: {str(e)}")
+        
+        return JsonResponse({'error': '服务器内部处理错误'}, status=500)
+    
 # 如果你的前端请求暂时不包含CSRF token，可以先使用此装饰器绕过检查（开发测试阶段）
+'''
 @csrf_exempt 
 def console_command(request):
     """
@@ -118,3 +163,4 @@ def your_backend_command_processor(command_str):
     #else:                           order_deal_Common(command_str)   
 
     return  repr(s['buffer'].getvalue())
+

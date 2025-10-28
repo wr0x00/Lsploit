@@ -156,6 +156,27 @@ def capture_stdout(func, *args, tee=False, **kwargs):
         result = func(*args, **kwargs)
     return result, buf.getvalue()
 '''
+def IO_web(orderweb:str=None):
+    # 读入示例json数据
+    
+    # 如果以非交互方式运行（用于捕获输出），直接返回，避免进入交互循环阻塞
+    if orderweb:
+        if "set" in orderweb:           order_deal_Setting(orderweb)
+        else:                           order_deal_Common(orderweb,demo_json["proxy"])   
+    '''
+    if orderweb:
+        while True:
+            try:                        order=input("Lsploit>")
+            except KeyboardInterrupt:
+                exit_()
+                return 1
+            except IndexError:          continue
+            if order == "exit":         
+               exit_()
+               return 1
+            if "set" in order:          order_deal_Setting(orderweb)
+            else:                       order_deal_Common(orderweb,demo_json["proxy"])   
+        '''
 
 def capture_interactive(*args, tee=True, orderweb=None,**kwargs):
     """在后台线程运行交互式函数，同时捕获 stdout（可 tee 到终端）并记录 input() 的输入。
@@ -168,6 +189,35 @@ def capture_interactive(*args, tee=True, orderweb=None,**kwargs):
 
     注意：该函数不会主动结束被运行的交互函数（除非函数本身退出，例如用户输入 exit），stop() 会等待线程结束。
     """
+    j=open("libs/configs.json",encoding='utf-8')
+    demo_json = json.loads(j.read())
+    '''
+    if demo_json["language"]=='cn'or demo_json["language"]=='CN':from libs.strings import String_CN as Str #中文
+    if demo_json["language"]=='en'or demo_json["language"]=='EN':from libs.strings import String_EN as Str #英文 
+    '''
+    if Config().language=='cn' or Config().language=='CN':from libs.strings import String_CN as Str #中文
+    if Config().language=='en' or Config().language=='EN':from libs.strings import String_EN as Str #英文  
+    
+    #if demo_json["first"]==False:       print(Str.WELCOME)
+    if Config().first == False:     print(Str.WELCOME)
+    #print(banner)
+
+    try:cve_info()    
+    #except requests.exceptions.SSLError: print("无漏洞播报，漏洞站貌似是崩了。。。")
+    #except requests.exceptions.ConnectionError:print("无漏洞播报，漏洞站貌似是崩了...")
+    #except requests.exceptions.Timeout:print("无漏洞播报，网络连接超时。。。")
+    except Exception as e:
+        from libs.strings import MessageSign as Msg
+        print(Msg.EXC+"无漏洞播报，漏洞站貌似是崩了。。。["+str(e)+"]")
+
+    try:
+        info=requests.get('http://myip.ipip.net',timeout=5).text
+        print('\033[91m'+info+'\033[1;37;40m')    #广域地址
+    except Exception as e:
+        from libs.strings import MessageSign as Msg
+        print(Msg.EXC+Str.ERROR_CONNECT)
+
+
     import threading, builtins
 
     buf = StringIO()
@@ -203,7 +253,7 @@ def capture_interactive(*args, tee=True, orderweb=None,**kwargs):
         # 在线程内重定向 stdout 到 out_stream
         with redirect_stdout(out_stream):
             try:
-                IO(True,orderweb)
+                IO_web(orderweb)
             finally:
                 # 当交互函数结束后，恢复 input
                 try: builtins.input = original_input
