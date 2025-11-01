@@ -136,6 +136,15 @@ libs\configs.json下配置
 ### NEXT STEP
  * web版
  * 自动化ai执行
+## Star History
+
+<a href="https://www.star-history.com/#wr0x00/Lsploit&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=wr0x00/Lsploit&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=wr0x00/Lsploit&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=wr0x00/Lsploit&type=date&legend=top-left" />
+ </picture>
+</a>
 
 ### 声明
 **用户使用本项目所触犯的一切法律责任与本项目作者无关，使用即接受此声明**
