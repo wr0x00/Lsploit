@@ -1,0 +1,13 @@
+python-whois
+requests
+shodan
+dill
+pexpect
+pysocks
+paramiko
+beautifulsoup4
+prettytable
+httpx
+PyYAML
+cozepy>=0.19.0
+django==3.2.21
