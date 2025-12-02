@@ -6,7 +6,7 @@
 ### 请使用者遵守《中华人民共和国网络安全法》，勿用于非授权测试，如作他用所承受的法律责任一概与作者无关，下载使用即代表使用者同意上述观点。
 ##
 #### Lsploit is a comprehensive asset collection and vulnerability scanning tool.
-#### lsploit是一款便携式综合资产分析及漏扫框架，拥有高性能,功能丰富,结合最新漏洞通告,嵌入ai,可自行组装exp,poc，方便红队快速打点
+#### lsploit是一款便携式综合资产分析及漏扫框架，拥有高性能,功能丰富,结合最新漏洞通告,嵌入ai,运用django+docker，可自行组装exp,poc，方便红队快速打点
 
 ### 安装
 ```shell
@@ -23,7 +23,7 @@ pip install requests && pip install bs4 -i https://pypi.tuna.tsinghua.edu.cn/sim
 ```shell
 python lp.py
 或
-bash lp.sh
+docker run -it lsploit  
 ```
 ### 效果预览
 ```shell
