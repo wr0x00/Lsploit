@@ -23,6 +23,7 @@ pip install requests && pip install bs4 -i https://pypi.tuna.tsinghua.edu.cn/sim
 ```shell
 python lp.py
 或
+docker build -t lsploit:latest .
 docker run -it lsploit  
 ```
 ### 效果预览
